@@ -3,7 +3,6 @@
 import {
   CopyIcon,
   CornerUpRightIcon,
-  MessageCircle,
   MessageCircleIcon,
   StarIcon,
 } from "lucide-react";
@@ -20,8 +19,12 @@ import { Separator } from "./ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
+import { PostMenuButton } from "./post-menu";
+import { cn } from "@/lib/utils";
 
-export function PostSnippet() {
+type Props = { layout?: "saved"; savedDate?: string };
+
+export function PostSnippet({ savedDate }: Props) {
   return (
     <Card className="rounded-none sm:rounded-md border-r-0 border-l-0 sm:border-l sm:border-r">
       <CardHeader>
@@ -40,15 +43,22 @@ export function PostSnippet() {
             </div>
           </div>
 
-          <div className="font-normal space-x-2">
-            <Badge size="xs">Javascript</Badge>
-            <Badge size="xs">Typescript</Badge>
-            <Badge size="xs">React</Badge>
-          </div>
+          {savedDate ? (
+            <span className="text-xs font-normal text-muted-foreground">
+              Saved at: {savedDate}
+            </span>
+          ) : (
+            <PostMenuButton />
+          )}
         </CardTitle>
 
         <CardDescription>
-          <p className="line-clamp-3 text-foreground">
+          <p
+            className={cn(
+              "text-foreground",
+              savedDate ? "line-clamp-2" : "line-clamp-3"
+            )}
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
             modi iusto ea sunt assumenda mollitia ex excepturi unde numquam,
             est, ipsam maiores officiis sequi consequuntur. Lorem ipsum dolor
@@ -63,8 +73,27 @@ export function PostSnippet() {
       </CardHeader>
 
       <Link href="/sadasd">
-        <CardContent className="relative px-0 h-64 bg-gray-200 dark:bg-gray-950 border-t border-b">
+        <CardContent
+          className={cn(
+            "relative px-0 bg-gray-200 dark:bg-gray-950 border-t border-b",
+            savedDate ? "h-52" : "h-64"
+          )}
+        >
           <p>Card Content</p>
+
+          {savedDate ? null : (
+            <div className="px-2 py-2 mt-auto absolute bottom-0 flex flex-wrap gap-2">
+              <Badge size="xs" variant="action">
+                Javascript
+              </Badge>
+              <Badge size="xs" variant="action">
+                Typescript
+              </Badge>
+              <Badge size="xs" variant="action">
+                React
+              </Badge>
+            </div>
+          )}
 
           <Button
             size="icon"
@@ -80,34 +109,36 @@ export function PostSnippet() {
         </CardContent>
       </Link>
 
-      <CardFooter className="flex items-center justify-between gap-3">
-        <Button
-          size="xs"
-          variant="secondary"
-          className="flex items-center gap-2 border"
-        >
-          <StarIcon />
-          <span>Stars</span>
-          <Separator orientation="vertical" />
-          <span className="text-xs text-muted-foreground">86</span>
-        </Button>
+      {savedDate ? null : (
+        <CardFooter className="flex items-center justify-between gap-3">
+          <Button
+            size="xs"
+            variant="secondary"
+            className="flex items-center gap-2 border"
+          >
+            <StarIcon />
+            <span>Stars</span>
+            <Separator orientation="vertical" />
+            <span className="text-xs text-muted-foreground">86</span>
+          </Button>
 
-        <Button
-          size="xs"
-          variant="secondary"
-          className="flex items-center gap-2 border"
-        >
-          <MessageCircleIcon />
-          <span>Comments</span>
-          <Separator orientation="vertical" />
-          <span className="text-xs text-muted-foreground">86</span>
-        </Button>
+          <Button
+            size="xs"
+            variant="secondary"
+            className="flex items-center gap-2 border"
+          >
+            <MessageCircleIcon />
+            <span>Comments</span>
+            <Separator orientation="vertical" />
+            <span className="text-xs text-muted-foreground">86</span>
+          </Button>
 
-        <Button size="xs" variant="ghost" className="ml-auto">
-          Share
-          <CornerUpRightIcon />
-        </Button>
-      </CardFooter>
+          <Button size="xs" variant="ghost" className="ml-auto">
+            Share
+            <CornerUpRightIcon />
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 }

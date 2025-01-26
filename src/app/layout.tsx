@@ -30,7 +30,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: `${kAppName} - %s`,
+    template: `%s | ${kAppName}`,
     default: `${kAppName} - ${kAppTagline}`,
   },
   description: kAppDescription,
@@ -52,7 +52,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SidebarProvider>
-            <AppSidebar />
+            <AppSidebar
+              languages={[
+                { label: "Javascript", id: "js" },
+                { label: "CSS", id: "css" },
+              ]}
+            />
+
             <SidebarInset>
               <header className="z-10 flex sticky top-0 bg-background h-14 shrink-0 items-center gap-2 border-b px-4 justify-between">
                 <SidebarTrigger className="inline-flex md:hidden" />
@@ -62,7 +68,7 @@ export default function RootLayout({
                 <div className="flex items-center gap-1 md:gap-2">
                   <Tooltip delayDuration={500}>
                     <TooltipTrigger asChild>
-                      <Link href="/post" passHref>
+                      <Link href="/posts/create" passHref>
                         <Button size="icon" variant="outline">
                           <PlusIcon />
                         </Button>

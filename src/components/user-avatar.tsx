@@ -5,6 +5,7 @@ import {
   Bell,
   ChevronsUpDown,
   FileCodeIcon,
+  LibraryBigIcon,
   LogOut,
   UserIcon,
 } from "lucide-react";
@@ -21,6 +22,7 @@ import {
 import { useSidebar } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function UserAvatar({
   user,
@@ -63,7 +65,7 @@ export function UserAvatar({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg space-y-1"
         // side={isMobile ? "bottom" : "right"}
         align="end"
         sideOffset={5}
@@ -87,14 +89,27 @@ export function UserAvatar({
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <FileCodeIcon />
-            My posts
-          </DropdownMenuItem>
+          <Link href="/account" passHref>
+            <DropdownMenuItem>
+              <BadgeCheck />
+              Account
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/posts" passHref>
+            <DropdownMenuItem>
+              <FileCodeIcon />
+              My posts
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/collections" passHref>
+            <DropdownMenuItem>
+              <LibraryBigIcon />
+              My collections
+            </DropdownMenuItem>
+          </Link>
+
           <DropdownMenuItem>
             <Bell />
             Notifications
