@@ -6,6 +6,7 @@
     "dev": "next dev -p 1717 --turbopack",
     "build": "next build",
     "start": "next start",
+    "release": "standard-version",
     "lint": "next lint"
   },
   "dependencies": {
