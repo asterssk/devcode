@@ -1,4 +1,4 @@
-import { PostSnippet } from "@/components/post-snippet";
+import { PostSnippet } from "@/components/cards/post-snippet";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -40,7 +40,7 @@ export default async function Page({ searchParams }: Props) {
   const { lang } = await searchParams;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem] items-start">
+    <div className="grid grid-cols-1 xl:grid-cols-[1fr_19rem] items-start">
       <div
         className={cn(
           "container mx-auto px-0 md:px-8 py-6 max-w-screen-lg",

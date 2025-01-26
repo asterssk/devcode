@@ -13,11 +13,11 @@ export function AppHeader({ title, className, children }: Props) {
 
   return (
     <div className={cn("flex gap-4 items-center justify-between", className)}>
-      <div className="flex items-center gap-4">
+      <div className="flex items-start gap-5">
         <Button size="icon" variant="secondary" onClick={() => router.back()}>
           <ArrowLeftIcon />
         </Button>
-        <h1 className="text-xl line-clamp-1">{title}</h1>
+        <h1 className="flex-1 text-xl">{title}</h1>
       </div>
 
       {children}

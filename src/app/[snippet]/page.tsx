@@ -4,9 +4,18 @@ import { CopyIcon, MessageCircleCodeIcon } from "lucide-react";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum modi
+        iusto ea sunt assumenda mollitia ex excepturi unde numquam, est, ipsam
+        maiores officiis sequi consequuntur. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Unde optio illo officia vel qui vero
+        aliquid commodi, quaerat labore. Sunt, id repellendus, rem
+        necessitatibus quibusdam quod
+      </p>
+
       <Card className="h-[50rem] relative flex flex-col">
-        <CardHeader className="bg-gray-200 py-2 pr-2 border-b sticky top-14">
+        <CardHeader className="bg-gray-200 dark:bg-gray-900 py-2 pr-2 border-b">
           <div className="flex items-center justify-between">
             <span className="text-sm">Implementation</span>
 
@@ -24,7 +33,7 @@ export default function Page() {
       </Card>
 
       <Card className="h-[20rem] relative flex flex-col">
-        <CardHeader className="bg-gray-200 py-2 pr-2 border-b sticky top-14">
+        <CardHeader className="bg-gray-200 dark:bg-gray-900 py-2 pr-2 border-b">
           <div className="flex items-center justify-between">
             <span className="text-sm">Usage</span>
 
@@ -40,21 +49,6 @@ export default function Page() {
           </div>
         </CardHeader>
       </Card>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ut
-        numquam sint quas officia cum, consequatur alias exercitationem
-        praesentium quasi accusamus sit ad illo aliquam enim accusantium quos
-        maiores facilis. Adipisci ex aliquid error aperiam, accusamus culpa iste
-        nobis doloribus voluptatibus tempore illo fugiat eum consequatur ea aut
-        rem esse sed non totam exercitationem necessitatibus? Commodi libero cum
-        officia doloremque quaerat odit esse facere quasi eveniet tenetur aut
-        fugit nisi, labore, iure animi ex. Eum sed neque optio accusantium
-        veritatis impedit illo dolore reprehenderit numquam, eaque voluptatibus
-        dolorem, sapiente nam molestias ratione corporis non at perferendis.
-        Quaerat optio sint debitis consequuntur recusandae accusantium itaque
-        mollitia.
-      </p>
     </div>
   );
 }

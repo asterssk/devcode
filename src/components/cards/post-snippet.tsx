@@ -6,7 +6,8 @@ import {
   MessageCircleIcon,
   StarIcon,
 } from "lucide-react";
-import { Button } from "./ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -14,13 +15,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Separator } from "./ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Badge } from "./ui/badge";
-import Link from "next/link";
+} from "../ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PostMenuButton } from "./post-menu";
-import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 type Props = { layout?: "saved"; savedDate?: string };
 
@@ -36,7 +36,7 @@ export function PostSnippet({ savedDate }: Props) {
             </Avatar>
 
             <div className="my-1 flex flex-col gap-[0.2rem]">
-              <span>Title</span>
+              <h3>Title</h3>
               <span className="text-xs font-thin text-muted-foreground">
                 Name of the user : {new Date().toDateString()}
               </span>

@@ -11,12 +11,12 @@ import { kAppDescription, kAppName, kAppTagline } from "@/constants";
 import "./globals.css";
 import SearchSnippetButton from "@/components/search-snippet-button";
 import { UserAvatar } from "@/components/user-avatar";
-import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import Link from "next/link";
+import { AppSidebar } from "@/components/navs/app-sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,7 +92,7 @@ export default function RootLayout({
                 </div>
               </header>
 
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 flex flex-col">{children}</main>
             </SidebarInset>
           </SidebarProvider>
           {/* <header

@@ -17,9 +17,9 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { AppLogo } from "./app-logo";
 import Link from "next/link";
 import { useSearchParams, useSelectedLayoutSegments } from "next/navigation";
+import { AppLogo } from "../app-logo";
 
 const data = {
   navBase: [

@@ -1,5 +1,5 @@
 import { AppHeader } from "@/components/app-header";
-import { PostSnippet } from "@/components/post-snippet";
+import { PostSnippet } from "@/components/cards/post-snippet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SortAscIcon } from "lucide-react";
