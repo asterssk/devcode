@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  CopyIcon,
-  CornerUpRightIcon,
-  MessageCircleIcon,
-  StarIcon,
-} from "lucide-react";
+import { CopyIcon, CornerUpRightIcon, MessageCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
@@ -21,13 +16,15 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { SnippetMenuButton } from "../menus/snippet";
+import { CredButton } from "../ui/cred-button";
 
 type Props = {
   id: string;
   savedDate?: string;
+  snippet: { status?: "up" | "down" };
 };
 
-export function PostSnippet({ id, savedDate }: Props) {
+export function PostSnippet({ id, snippet, savedDate }: Props) {
   return (
     <Card className="rounded-none sm:rounded-md border-r-0 border-l-0 sm:border-l sm:border-r">
       <CardHeader>
@@ -114,16 +111,12 @@ export function PostSnippet({ id, savedDate }: Props) {
 
       {savedDate ? null : (
         <CardFooter className="flex items-center justify-between gap-3">
-          <Button
-            size="xs"
-            variant="secondary"
-            className="flex items-center gap-2 border"
-          >
-            <StarIcon />
-            <span>Stars</span>
-            <Separator orientation="vertical" />
-            <span className="text-xs text-muted-foreground">86</span>
-          </Button>
+          <CredButton
+            status={snippet.status}
+            points={213}
+            onUpvote={() => {}}
+            onDownvote={() => {}}
+          />
 
           <Link href={`/${id}/comments`}>
             <Button

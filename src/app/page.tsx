@@ -52,10 +52,10 @@ export default async function Page({ searchParams }: Props) {
           "flex flex-col gap-4"
         )}
       >
-        <PostSnippet id="sample_1" />
-        <PostSnippet id="sample_2" />
-        <PostSnippet id="sample_3" />
-        <PostSnippet id="sample_4" />
+        <PostSnippet id="sample_1" snippet={{ status: "down" }} />
+        <PostSnippet id="sample_2" snippet={{ status: "down" }} />
+        <PostSnippet id="sample_3" snippet={{ status: "up" }} />
+        <PostSnippet id="sample_4" snippet={{}} />
       </div>
 
       <div className={cn("sticky top-14 hidden lg:flex flex-col h-rest")}>
@@ -109,32 +109,6 @@ export default async function Page({ searchParams }: Props) {
                 </div>
               );
             })}
-
-            {/* {collections.map((collect) => (
-              <React.Fragment key={collect.id}>
-                <Link
-                  href={`/collections/${collect.id}`}
-                  className={cn(
-                    "flex items-center gap-2 justify-between p-2 rounded",
-                    "transition-colors hover:bg-secondary"
-                  )}
-                >
-                  <div className="flex flex-nowrap gap-1.5 items-center">
-                    <div className="bg-red-500 h-1.5 w-1.5 rounded-full" />
-                    <span className="text-sm line-clamp-1">
-                      {collect.title}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs">{collect.count}</span>
-                    <div className="text-[0.5rem] text-muted-foreground hidden md:block">
-                      Private
-                    </div>
-                  </div>
-                </Link>
-              </React.Fragment>
-            ))} */}
           </div>
         </ScrollArea>
       </div>
