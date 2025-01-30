@@ -63,11 +63,12 @@ export default function RootLayout({ children, dialog }: Props) {
 
             <SidebarInset>
               <header className="z-10 flex sticky top-0 bg-background h-14 shrink-0 items-center gap-2 border-b px-4 justify-between">
-                <SidebarTrigger className="inline-flex md:hidden" />
+                <div className="flex gap-1 sm:gap-2 md:gap-3 items-center">
+                  <SidebarTrigger className="inline-flex md:hidden" />
+                  <SearchSnippetButton />
+                </div>
 
-                <SearchSnippetButton />
-
-                <div className="flex items-center gap-1 md:gap-2">
+                <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
                   <Tooltip delayDuration={500}>
                     <TooltipTrigger asChild>
                       <Link href="/form/snippet" passHref>

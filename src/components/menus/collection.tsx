@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import Link from "next/link";
 
 type Props = { className?: string };
 
@@ -22,14 +23,16 @@ export function CollectionMenuButton({ className }: Props) {
         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg space-y-1"
         align="end"
       >
-        <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
+        <Link
+          href={`/form/collection?id=${"sample_id"}`}
+          passHref
+          onClick={(e) => e.stopPropagation()}
         >
-          <EditIcon />
-          Edit
-        </DropdownMenuItem>
+          <DropdownMenuItem>
+            <EditIcon />
+            Edit
+          </DropdownMenuItem>
+        </Link>
 
         <DropdownMenuSeparator />
 

@@ -6,6 +6,7 @@ import {
   FileInput,
   FolderPlus,
   Search,
+  SearchIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -19,6 +20,8 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 export default function SearchSnippetButton() {
   const [open, setOpen] = React.useState(false);
@@ -38,10 +41,14 @@ export default function SearchSnippetButton() {
   return (
     <div>
       <button
-        className="inline-flex h-9 w-fit rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm shadow-black/5 transition-shadow placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20"
+        className={cn(
+          "h-9 w-fit rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm shadow-black/5 transition-shadow placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20",
+          "hidden sm:inline-flex"
+        )}
+        type="button"
         onClick={() => setOpen(true)}
       >
-        <span className="flex grow items-center">
+        <span className="grow items-center flex">
           <Search
             className="-ms-1 me-3 text-muted-foreground/80"
             size={16}
@@ -56,6 +63,16 @@ export default function SearchSnippetButton() {
           ⌘K
         </kbd>
       </button>
+
+      <Button
+        size="icon"
+        variant="outline"
+        onClick={() => setOpen(true)}
+        type="button"
+        className="flex sm:hidden"
+      >
+        <SearchIcon />
+      </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />

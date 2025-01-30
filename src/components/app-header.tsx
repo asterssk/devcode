@@ -17,7 +17,11 @@ export function AppHeader({ title, className, children }: Props) {
         <Button size="icon" variant="secondary" onClick={() => router.back()}>
           <ArrowLeftIcon />
         </Button>
-        <h1 className="flex-1 text-xl">{title}</h1>
+        {typeof title === "string" ? (
+          <h1 className="flex-1 text-xl">{title}</h1>
+        ) : (
+          title
+        )}
       </div>
 
       {children}

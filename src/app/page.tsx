@@ -7,37 +7,42 @@ import Link from "next/link";
 import React from "react";
 
 const collections = [
-  { id: "1", title: "Title", count: 223 },
-  { id: "2", title: "Title", count: 223 },
-  { id: "3", title: "Title", count: 223 },
-  { id: "4", title: "Title", count: 223 },
-  { id: "5", title: "Title", count: 223 },
-  { id: "6", title: "Title", count: 223 },
-  { id: "7", title: "Title", count: 223 },
-  { id: "8", title: "Title", count: 223 },
-  { id: "9", title: "Title", count: 223 },
-  { id: "10", title: "Title", count: 223 },
-  { id: "11", title: "Title", count: 223 },
-  { id: "12", title: "Title", count: 223 },
-  { id: "13", title: "Title", count: 223 },
-  { id: "14", title: "Title", count: 223 },
-  { id: "15", title: "Title", count: 223 },
-  { id: "16", title: "Title", count: 223 },
-  { id: "17", title: "Title", count: 223 },
-  { id: "18", title: "Title", count: 223 },
-  { id: "19", title: "Title", count: 223 },
-  { id: "20", title: "Title", count: 223 },
-  { id: "21", title: "Title", count: 223 },
-  { id: "22", title: "Title", count: 223 },
-  { id: "23", title: "Title", count: 223 },
-  { id: "24", title: "END-0", count: 223 },
-  { id: "25", title: "END", count: 223 },
+  { id: "1", title: "Title", count: 223, visibility: "public" },
+  { id: "2", title: "Title", count: 223, visibility: "public" },
+  { id: "3", title: "Title", count: 223, visibility: "private" },
+  { id: "4", title: "Title", count: 223, visibility: "private" },
+  { id: "5", title: "Title", count: 223, visibility: "private" },
+  { id: "6", title: "Title", count: 223, visibility: "private" },
+  { id: "7", title: "Title", count: 223, visibility: "private" },
+  { id: "8", title: "Title", count: 223, visibility: "private" },
+  { id: "9", title: "Title", count: 223, visibility: "private" },
+  { id: "10", title: "Title", count: 223, visibility: "private" },
+  { id: "11", title: "Title", count: 223, visibility: "private" },
+  { id: "12", title: "Title", count: 223, visibility: "private" },
+  { id: "13", title: "Title", count: 223, visibility: "private" },
+  { id: "14", title: "Title", count: 223, visibility: "private" },
+  { id: "15", title: "Title", count: 223, visibility: "private" },
+  { id: "16", title: "Title", count: 223, visibility: "private" },
+  { id: "17", title: "Title", count: 223, visibility: "private" },
+  { id: "18", title: "Title", count: 223, visibility: "private" },
+  { id: "19", title: "Title", count: 223, visibility: "private" },
+  { id: "20", title: "Title", count: 223, visibility: "public" },
+  { id: "21", title: "Title", count: 223, visibility: "private" },
+  { id: "22", title: "Title", count: 223, visibility: "private" },
+  { id: "23", title: "Title", count: 223, visibility: "private" },
+  { id: "24", title: "END-0", count: 223, visibility: "private" },
+  { id: "25", title: "END", count: 223, visibility: "private" },
 ];
 
 type Props = { searchParams: Promise<{ lang?: string; framework?: string }> };
 
 export default async function Page({ searchParams }: Props) {
   const { lang } = await searchParams;
+
+  const groupedCollections = Object.groupBy(
+    collections,
+    ({ visibility }) => visibility
+  );
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_19rem] items-start">
@@ -54,7 +59,7 @@ export default async function Page({ searchParams }: Props) {
       </div>
 
       <div className={cn("sticky top-14 hidden lg:flex flex-col h-rest")}>
-        <div className="flex items-center justify-between p-3">
+        <div className="flex items-center justify-between pl-2 pr-3 pb-2 pt-3">
           <Link
             href="/collections"
             className="text-sm font-semibold hover:underline underline-offset-2"
@@ -70,21 +75,66 @@ export default async function Page({ searchParams }: Props) {
         </div>
 
         <ScrollArea className="pr-4">
-          <div className="flex flex-col pb-3">
-            {collections.map((collect) => (
+          <div className="flex flex-col pb-3 gap-4">
+            {Object.keys(groupedCollections).map((visibility) => {
+              const items = groupedCollections[visibility] ?? [];
+
+              return (
+                <div key={visibility} className="flex flex-col">
+                  <h2 className="py-1 text-xs px-2 uppercase font-bold text-muted-foreground">
+                    {visibility}
+                  </h2>
+
+                  {items.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`/collections/${item.id}`}
+                      className={cn(
+                        "flex items-center gap-2 justify-between p-2 rounded",
+                        "transition-colors hover:bg-secondary"
+                      )}
+                    >
+                      <div className="flex flex-nowrap gap-1.5 items-center">
+                        <div className="bg-red-500 h-1.5 w-1.5 rounded-full" />
+                        <span className="text-sm line-clamp-1">
+                          {item.title}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs">{item.count}</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              );
+            })}
+
+            {/* {collections.map((collect) => (
               <React.Fragment key={collect.id}>
                 <Link
                   href={`/collections/${collect.id}`}
                   className={cn(
-                    "flex items-center gap-2 justify-between px-3 py-3 rounded",
+                    "flex items-center gap-2 justify-between p-2 rounded",
                     "transition-colors hover:bg-secondary"
                   )}
                 >
-                  <span className="text-sm line-clamp-1">{collect.title}</span>
-                  <span className="text-xs">{collect.count}</span>
+                  <div className="flex flex-nowrap gap-1.5 items-center">
+                    <div className="bg-red-500 h-1.5 w-1.5 rounded-full" />
+                    <span className="text-sm line-clamp-1">
+                      {collect.title}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs">{collect.count}</span>
+                    <div className="text-[0.5rem] text-muted-foreground hidden md:block">
+                      Private
+                    </div>
+                  </div>
                 </Link>
               </React.Fragment>
-            ))}
+            ))} */}
           </div>
         </ScrollArea>
       </div>
