@@ -36,7 +36,12 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
             </Avatar>
 
             <div className="my-1 flex flex-col gap-[0.2rem]">
-              <h3>Title</h3>
+              <Link
+                href={`/u/${id}`}
+                className="hover:underline underline-offset-3"
+              >
+                Title
+              </Link>
               <span className="text-xs font-thin text-muted-foreground">
                 Name of the user : {new Date().toDateString()}
               </span>
