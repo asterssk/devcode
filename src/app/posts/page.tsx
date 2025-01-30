@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PlusIcon } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = { title: "My Posts" };
 
@@ -148,10 +149,12 @@ export default function Page() {
     <div className="flex flex-col flex-1 gap-4 max-w-screen-xl px-6 py-4 md:px-8 h-full">
       <AppHeader title="My Snippets">
         <div className="flex gap-2 items-center">
-          <Button size="sm">
-            <PlusIcon />
-            Post a new snippet
-          </Button>
+          <Link href="/form/snippet" passHref>
+            <Button size="sm">
+              <PlusIcon />
+              Post a new snippet
+            </Button>
+          </Link>
         </div>
       </AppHeader>
 

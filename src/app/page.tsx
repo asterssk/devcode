@@ -47,10 +47,10 @@ export default async function Page({ searchParams }: Props) {
           "flex flex-col gap-4"
         )}
       >
-        <PostSnippet />
-        <PostSnippet />
-        <PostSnippet />
-        <PostSnippet />
+        <PostSnippet id="sample_1" />
+        <PostSnippet id="sample_2" />
+        <PostSnippet id="sample_3" />
+        <PostSnippet id="sample_4" />
       </div>
 
       <div className={cn("sticky top-14 hidden lg:flex flex-col h-rest")}>
@@ -61,9 +61,12 @@ export default async function Page({ searchParams }: Props) {
           >
             MY COLLECTIONS {lang}
           </Link>
-          <Button size="icon-xs" variant="ghost">
-            <PlusIcon />
-          </Button>
+
+          <Link href="/form/collection" passHref>
+            <Button size="icon-xs" variant="ghost">
+              <PlusIcon />
+            </Button>
+          </Link>
         </div>
 
         <ScrollArea className="pr-4">

@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -5,7 +7,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../ui/card";
+import { CollectionMenuButton } from "../menus/collection";
 
 type Props = { title: string };
 
@@ -13,7 +16,9 @@ export function CollectionCard({ title }: Props) {
   return (
     <Card className="rounded-none sm:rounded-md border-r-0 border-l-0 sm:border-l sm:border-r hover:border-primary transition-colors">
       <CardContent className="relative bg-gray-200 dark:bg-gray-950 border-b h-32">
-        <div className="text-xs absolute bottom-2 right-2 bg-gray-800/20 py-1 px-2 rounded-sm">
+        <CollectionMenuButton className="absolute right-2 top-2" />
+
+        <div className="text-xs absolute bottom-2 right-2 bg-gray-400/15 dark:bg-gray-800/20 py-1 px-2 rounded-sm">
           Saved snippets: 445
         </div>
       </CardContent>

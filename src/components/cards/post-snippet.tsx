@@ -17,19 +17,22 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { PostMenuButton } from "./post-menu";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { SnippetMenuButton } from "../menus/snippet";
 
-type Props = { layout?: "saved"; savedDate?: string };
+type Props = {
+  id: string;
+  savedDate?: string;
+};
 
-export function PostSnippet({ savedDate }: Props) {
+export function PostSnippet({ id, savedDate }: Props) {
   return (
     <Card className="rounded-none sm:rounded-md border-r-0 border-l-0 sm:border-l sm:border-r">
       <CardHeader>
         <CardTitle className="flex items-start justify-between gap-3">
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-1">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
@@ -48,7 +51,7 @@ export function PostSnippet({ savedDate }: Props) {
               Saved at: {savedDate}
             </span>
           ) : (
-            <PostMenuButton />
+            <SnippetMenuButton />
           )}
         </CardTitle>
 
@@ -122,16 +125,18 @@ export function PostSnippet({ savedDate }: Props) {
             <span className="text-xs text-muted-foreground">86</span>
           </Button>
 
-          <Button
-            size="xs"
-            variant="secondary"
-            className="flex items-center gap-2 border"
-          >
-            <MessageCircleIcon />
-            <span>Comments</span>
-            <Separator orientation="vertical" />
-            <span className="text-xs text-muted-foreground">86</span>
-          </Button>
+          <Link href={`/${id}/comments`}>
+            <Button
+              size="xs"
+              variant="secondary"
+              className="flex items-center gap-2 border"
+            >
+              <MessageCircleIcon />
+              <span>Comments</span>
+              <Separator orientation="vertical" />
+              <span className="text-xs text-muted-foreground">86</span>
+            </Button>
+          </Link>
 
           <Button size="xs" variant="ghost" className="ml-auto">
             Share

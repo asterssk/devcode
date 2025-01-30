@@ -1,31 +1,13 @@
 import { AppHeader } from "@/components/app-header";
-import { PostMenuButton } from "@/components/cards/post-menu";
 import { SnippetCopiesChart } from "@/components/charts/snippet-copies";
+import { SnippetMenuButton } from "@/components/menus/snippet";
 import { SnippetNav } from "@/components/navs/snippet";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { StarIcon } from "lucide-react";
 import { ReactNode } from "react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
 type Props = { children: ReactNode; params: Promise<{ snippet: string }> };
 
@@ -36,7 +18,7 @@ export default async function Layout({ children, params }: Props) {
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem]  items-start">
       <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
         <AppHeader title="Title asdasd dadasdasdasdjasdhajsdhasjkdhas dhas khdjsa khdjkashkjdhajskhdkj ashdjk ashdkasjkdhasjkdjk sjkadhas">
-          <PostMenuButton />
+          <SnippetMenuButton className="ml-auto flex-none self-start" />
         </AppHeader>
 
         <SnippetNav id={snippet} comments={100} />

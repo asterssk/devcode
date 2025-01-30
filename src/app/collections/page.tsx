@@ -1,7 +1,7 @@
 import { AppHeader } from "@/components/app-header";
-import { CollectionCard } from "@/components/collection-card";
+import { CollectionCard } from "@/components/cards/collection";
 import { Button } from "@/components/ui/button";
-import { SortAscIcon } from "lucide-react";
+import { PlusIcon, SortAscIcon } from "lucide-react";
 import Link from "next/link";
 
 const items = [
@@ -132,7 +132,13 @@ export default async function Page() {
     <div className="flex flex-col gap-8 container mx-auto max-w-screen-xl px-4 py-6 md:px-8">
       <AppHeader title="My Collections">
         <div className="flex gap-2 items-center">
-          <Button size="sm">Create new collection</Button>
+          <Link href="/form/collection">
+            <Button size="sm">
+              <PlusIcon />
+              Create new collection
+            </Button>
+          </Link>
+
           <Button size="icon" variant="outline">
             <SortAscIcon />
           </Button>

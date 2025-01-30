@@ -1,4 +1,4 @@
-import { EllipsisIcon, FlagIcon, SaveIcon, UserCheckIcon } from "lucide-react";
+import { EllipsisIcon, FlagIcon, PlusIcon, UserCheckIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -7,12 +7,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+type Props = { className?: string };
 
-export function PostMenuButton() {
+export function SnippetMenuButton({ className }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="icon-xs" variant="ghost" className="ml-auto">
+        <Button size="icon-xs" variant="ghost" className={className}>
           <EllipsisIcon />
         </Button>
       </DropdownMenuTrigger>
@@ -21,7 +22,7 @@ export function PostMenuButton() {
         align="end"
       >
         <DropdownMenuItem>
-          <SaveIcon />
+          <PlusIcon />
           Add to collection
         </DropdownMenuItem>
 

@@ -3,7 +3,7 @@
 import { ThemeProviderProps, useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import * as React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { MoonStarIcon, SunIcon } from "lucide-react";
 
 const NextThemesProvider = dynamic(
@@ -27,24 +27,5 @@ export function ThemeToggler() {
     >
       {theme === "light" ? <MoonStarIcon /> : <SunIcon />}
     </Button>
-
-    // <Tooltip delayDuration={500}>
-    //   <TooltipTrigger asChild>
-    //     <Button
-    //       variant="outline"
-    //       size="icon"
-    //       className="flex-none"
-    //       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    //     >
-    //       {theme === "light" ? <MoonStarIcon /> : <SunIcon />}
-    //     </Button>
-    //   </TooltipTrigger>
-
-    //   <TooltipContent>
-    //     <p>
-    //       {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-    //     </p>
-    //   </TooltipContent>
-    // </Tooltip>
   );
 }

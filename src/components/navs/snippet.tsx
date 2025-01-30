@@ -1,11 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  BookOpenTextIcon,
-  CodeXmlIcon,
-  MessageCircleCodeIcon,
-} from "lucide-react";
+import { CodeXmlIcon, MessageCircleCodeIcon } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
@@ -26,16 +22,7 @@ export function SnippetNav({ id, comments }: Props) {
         <CodeXmlIcon className="size-4" />
         Code
       </Link>
-      <Link
-        href={`/${id}/readme`}
-        className={cn(
-          "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          segment === "readme" ? "border-b-primary" : "border-b-transparent"
-        )}
-      >
-        <BookOpenTextIcon className="size-4" />
-        Readme
-      </Link>
+
       <Link
         href={`/${id}/comments`}
         className={cn(
