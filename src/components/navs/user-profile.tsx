@@ -1,18 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  CodeXmlIcon,
-  MessageCircleCodeIcon,
-  SettingsIcon,
-  TextSearchIcon,
-} from "lucide-react";
+import { CodeXmlIcon, TextSearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
-type Props = { id: string; comments: number; className?: string };
+type Props = { id: string; className?: string };
 
-export function UserProfileNav({ id, comments, className }: Props) {
+export function UserProfileNav({ id, className }: Props) {
   const segment = useSelectedLayoutSegment();
 
   return (
@@ -23,7 +18,7 @@ export function UserProfileNav({ id, comments, className }: Props) {
       )}
     >
       <Link
-        href={`/${id}`}
+        href={`/u/${id}`}
         className={cn(
           "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
           !segment ? "border-b-primary" : "border-b-transparent"
@@ -34,10 +29,10 @@ export function UserProfileNav({ id, comments, className }: Props) {
       </Link>
 
       <Link
-        href={`/${id}/comments`}
+        href={`/u/${id}/posts`}
         className={cn(
           "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          segment === "comments" ? "border-b-primary" : "border-b-transparent"
+          segment === "posts" ? "border-b-primary" : "border-b-transparent"
         )}
       >
         <CodeXmlIcon className="size-4" />

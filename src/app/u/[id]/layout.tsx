@@ -13,10 +13,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { StarIcon } from "lucide-react";
 import { ReactNode } from "react";
 
-type Props = { children: ReactNode; params: Promise<{ snippet: string }> };
+type Props = { children: ReactNode; params: Promise<{ id: string }> };
 
 export default async function Layout({ children, params }: Props) {
-  const { snippet } = await params;
+  const { id } = await params;
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem]  items-start">
@@ -38,11 +38,9 @@ export default async function Layout({ children, params }: Props) {
               </div>
             </div>
           }
-        >
-          <SnippetMenuButton className="ml-auto flex-none self-start" />
-        </AppHeader>
+        ></AppHeader>
 
-        <UserProfileNav id={""} comments={0} />
+        <UserProfileNav id={id} />
 
         {children}
 
@@ -55,7 +53,12 @@ export default async function Layout({ children, params }: Props) {
       </div>
 
       <div className="sticky top-14 py-6 pr-4 hidden xl:flex flex-col gap-4">
-        <Card className="p-4">ABOUT THE AUTHOR</Card>
+        <Card className="p-4">
+          <button>Follow</button>
+          <button>Share</button>
+          <button>Block</button>
+          <button>Report</button>
+        </Card>
         <UserProfileStatistics />
       </div>
     </div>
