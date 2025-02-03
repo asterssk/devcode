@@ -1,10 +1,16 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-type Props = { label?: string };
+type Props = { label?: string; className?: string };
 
-export function Empty({ label }: Props) {
+export function Empty({ label, className }: Props) {
   return (
-    <div className="flex flex-col gap-2 items-center justify-center">
+    <div
+      className={cn(
+        "flex flex-col gap-2 items-center justify-center",
+        className
+      )}
+    >
       <Image
         src="/icons/empty-box.png"
         height={50}

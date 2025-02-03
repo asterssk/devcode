@@ -30,7 +30,7 @@ export default function Layout({ children }: Props) {
         className="overflow-clip"
         variant={
           screenForms.some((e) => e === segment?.toLowerCase())
-            ? "screen"
+            ? "full"
             : "default"
         }
       >
@@ -44,7 +44,9 @@ export default function Layout({ children }: Props) {
           This action cannot be undone.
         </DialogDescription>
 
-        <div className="overflow-y-auto flex-1 bg-background">{children}</div>
+        <div className="overflow-y-auto flex-1 bg-background flex flex-col">
+          {children}
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -43,17 +43,6 @@ export function UserProfileNav({ id, comments, className }: Props) {
         <CodeXmlIcon className="size-4" />
         Posts
       </Link>
-
-      <Link
-        href={`/${id}/comments`}
-        className={cn(
-          "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          segment === "comments" ? "border-b-primary" : "border-b-transparent"
-        )}
-      >
-        <SettingsIcon className="size-4" />
-        Settings
-      </Link>
     </div>
   );
 }

@@ -6,27 +6,40 @@ import { X } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+const positioning = {
+  default: `left-[50%] top-[50%] w-full max-w-lg translate-x-[-50%] translate-y-[-50%] sm:rounded-lg`,
+  screen: `h-full min-w-full w-full sm:rounded-none md:border-solid md:rounded-lg md:h-rest md:max-w-screen-lg sm:w-[95%]`,
+  full: "inset-0 w-screen h-screen rounded-none border-none",
+};
+
+const animations = {
+  base: "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+  slide: `data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]`,
+};
+
 const dialogVariants = cva(
-  "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+  "fixed z-50 grid gap-4 border bg-background shadow-lg duration-200 overflow-clip",
   {
     variants: {
       variant: {
-        default: "",
+        default: cn(positioning.default, animations.base, animations.slide),
         screen: cn(
-          "flex flex-col gap-0 p-0 overflow-clip",
-          "h-full min-w-full w-full border-none sm:rounded-none",
-          "md:border-solid md:rounded-lg md:h-rest md:max-w-screen-lg sm:w-[95%] md:min-w-max"
+          positioning.default,
+          positioning.screen,
+          animations.base,
+          animations.slide,
+          "flex flex-col gap-0 p-0 md:border-solid"
         ),
-      },
-      size: {
-        default: "",
-        sm: "",
-        lg: "",
+        full: cn(
+          positioning.full,
+          animations.base,
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+          "flex flex-col gap-0 p-0"
+        ),
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
     },
   }
 );
@@ -36,11 +49,8 @@ export interface DialogContentProps
     VariantProps<typeof dialogVariants> {}
 
 const Dialog = DialogPrimitive.Root;
-
 const DialogTrigger = DialogPrimitive.Trigger;
-
 const DialogPortal = DialogPrimitive.Portal;
-
 const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
@@ -50,7 +60,9 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-40 bg-black/80 backdrop-blur-sm",
+      "data-[state=open]:animate-in data-[state=closed]:animate-out",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -61,12 +73,12 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, variant, size, children, ...props }, ref) => (
+>(({ className, variant, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
       ref={ref}
-      className={cn(dialogVariants({ variant, size, className }))}
+      className={cn(dialogVariants({ variant, className }))}
       {...props}
     >
       {children}

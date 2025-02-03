@@ -20,10 +20,10 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 type Props = { parent_id?: string };
 
-export function CollectionForm({ parent_id }: Props) {
+export function CollectionForm({}: Props) {
   const form = useForm<z.infer<typeof collectionSchema>>({
     resolver: zodResolver(collectionSchema),
-    defaultValues: { parent_id: parent_id, visibility: "public" },
+    defaultValues: { visibility: "public" },
   });
 
   return (
@@ -32,7 +32,7 @@ export function CollectionForm({ parent_id }: Props) {
         onSubmit={form.handleSubmit(() => {})}
         className="flex flex-col gap-6"
       >
-        <div className="flex flex-col gap-6 px-4 py-4 flex-1 ">
+        <div className="flex flex-col gap-6 px-4 py-4 flex-1">
           <FormField
             control={form.control}
             name="name"
