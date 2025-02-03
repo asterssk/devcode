@@ -5,13 +5,17 @@ import { myCollectionsViewAtom } from "@/lib/atoms/collections";
 import { useAtom } from "jotai";
 import { Grid2x2Icon, PlusIcon, SortAscIcon, Table2Icon } from "lucide-react";
 import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 export function MyCollectionsToolbar() {
+  const segment = useSelectedLayoutSegment();
   const [_view, setView] = useAtom(myCollectionsViewAtom);
+
+  console.log("P", segment);
 
   return (
     <div className="flex gap-2 items-center">
-      <Link href="/form/collection">
+      <Link href={`/form/collection?parent=${segment}`}>
         <Button size="sm" className="hidden md:inline-flex">
           <PlusIcon />
           Create new collection

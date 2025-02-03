@@ -121,7 +121,7 @@ export const sampleItems = [
   },
   {
     id: "16",
-    name: "Eve Chen",
+    name: "Eve Chen End",
     email: "eve.chen@company.com",
     location: "Taipei, TW",
     status: "Active",

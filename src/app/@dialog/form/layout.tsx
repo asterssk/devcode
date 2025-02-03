@@ -27,6 +27,7 @@ export default function Layout({ children }: Props) {
   return (
     <Dialog open onOpenChange={() => router.back()}>
       <DialogContent
+        className="overflow-clip"
         variant={
           screenForms.some((e) => e === segment?.toLowerCase())
             ? "screen"
@@ -40,8 +41,7 @@ export default function Layout({ children }: Props) {
         </DialogHeader>
 
         <DialogDescription className="sr-only">
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
+          This action cannot be undone.
         </DialogDescription>
 
         <div className="overflow-y-auto flex-1 bg-background">{children}</div>

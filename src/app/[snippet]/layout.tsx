@@ -17,7 +17,7 @@ export default async function Layout({ children, params }: Props) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem]  items-start">
       <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
-        <AppHeader title="Title asdasd dadasdasdasdjasdhajsdhasjkdhas dhas khdjsa khdjkashkjdhajskhdkj ashdjk ashdkasjkdhasjkdjk sjkadhas">
+        <AppHeader title={snippet}>
           <SnippetMenuButton className="ml-auto flex-none self-start" />
         </AppHeader>
 

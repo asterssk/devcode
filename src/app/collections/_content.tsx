@@ -24,7 +24,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-
 type Props = {
   collections: { id: string; name: string }[];
   items: {
@@ -37,8 +36,14 @@ type Props = {
   }[];
 };
 
+type ContentProps = Props & {
+  onCollectionClick?: (id: string) => void;
+  onSnippetClick?: (id: string) => void;
+};
+
 export function MyCollectionsContent({ collections, items }: Props) {
   const _view = useAtomValue(myCollectionsViewAtom);
+  const router = useRouter();
   const { id: ids } = useParams<{ id?: string[] }>();
 
   if (items.length < 1 && collections.length < 1) {
@@ -70,16 +75,27 @@ export function MyCollectionsContent({ collections, items }: Props) {
         {_view === "grid" ? (
           <GridView items={items} collections={[]} />
         ) : (
-          <TableView items={items} collections={collections} />
+          <TableView
+            items={items}
+            collections={collections}
+            onSnippetClick={(id) => router.push(`/${id}`)}
+            onCollectionClick={(id) => {
+              const segments = ids ? "/" + ids.join("/") : "";
+              router.push(`/collections${segments}/${id}`);
+            }}
+          />
         )}
       </div>
     </ScrollArea>
   );
 }
 
-function TableView({ items, collections }: Props) {
-  const router = useRouter();
-
+function TableView({
+  items,
+  collections,
+  onSnippetClick,
+  onCollectionClick,
+}: ContentProps) {
   return (
     <Table
       className={cn(
@@ -99,7 +115,11 @@ function TableView({ items, collections }: Props) {
 
       <TableBody>
         {collections.map((item) => (
-          <TableRow key={item.id} onClick={() => router.push("")}>
+          <TableRow
+            key={item.id}
+            onClick={() => onCollectionClick?.(item.id)}
+            className="cursor-pointer"
+          >
             <TableCell>
               <div className="flex items-center gap-2">
                 <LibraryBigIcon className="size-3.5" />
@@ -118,7 +138,7 @@ function TableView({ items, collections }: Props) {
               </Badge>
             </TableCell>
 
-            <TableCell>
+            <TableCell onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-end">
                 <CollectionMenuButton />
               </div>
@@ -127,7 +147,11 @@ function TableView({ items, collections }: Props) {
         ))}
 
         {items.map((item) => (
-          <TableRow key={item.id} onClick={() => router.push("")}>
+          <TableRow
+            key={item.id}
+            onClick={() => onSnippetClick?.(item.id)}
+            className="cursor-pointer"
+          >
             <TableCell>
               <div className="flex items-center gap-2">
                 <SquareDashedBottomCodeIcon className="size-3.5" />
@@ -145,7 +169,7 @@ function TableView({ items, collections }: Props) {
                 Private
               </Badge>
             </TableCell>
-            <TableCell>
+            <TableCell onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-end">
                 <Button size="icon-xs" variant="ghost">
                   <EllipsisIcon />
@@ -159,7 +183,7 @@ function TableView({ items, collections }: Props) {
   );
 }
 
-function GridView({ items }: Props) {
+function GridView({ items }: ContentProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((collect) => {

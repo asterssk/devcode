@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { HomeIcon, UserCheck2Icon, UsersIcon } from "lucide-react";
+import { HomeIcon, UserCheck2Icon } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -25,11 +25,11 @@ const data = {
   navBase: [
     { label: "Home", icon: HomeIcon, url: "/" },
     { label: "Following", icon: UserCheck2Icon, url: "/following" },
-    { label: "Community", icon: UsersIcon, url: "/community" },
+    // { label: "Community", icon: UsersIcon, url: "/community" },
   ],
-  navTopics: [
-    { label: "Best Practices", icon: HomeIcon, url: "/best-practices" },
-    { label: "Frameworks", icon: UserCheck2Icon, url: "/frameworks" },
+  navCommunity: [
+    { label: "Questions", icon: HomeIcon, url: "/questions" },
+    { label: "Discussions", icon: UserCheck2Icon, url: "/discussions" },
   ],
 } as const;
 
@@ -69,10 +69,10 @@ export function AppSidebar({ languages, ...props }: Props) {
             <SidebarSeparator />
 
             <SidebarMenuItem>
-              <SidebarGroupLabel>TOPICS</SidebarGroupLabel>
+              <SidebarGroupLabel>COMMUNITY</SidebarGroupLabel>
 
               <SidebarMenuSub>
-                {data.navTopics.map((item) => {
+                {data.navCommunity.map((item) => {
                   const isActive = segments.includes(
                     item.url.split("/").at(-1) ?? ""
                   );

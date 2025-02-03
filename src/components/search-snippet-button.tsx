@@ -56,7 +56,7 @@ export default function SearchSnippetButton() {
             aria-hidden="true"
           />
           <span className="font-normal text-muted-foreground/70 pr-4 md:pr-0 line-clamp-1 text-left">
-            Find snippets
+            Search...
           </span>
         </span>
         <kbd className="hidden -me-1 ms-12 md:inline-flex h-5 max-h-full items-center rounded border border-border bg-background px-1 font-[inherit] text-[0.625rem] font-medium text-muted-foreground/70">

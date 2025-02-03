@@ -30,21 +30,24 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
       <CardHeader>
         <CardTitle className="flex items-start justify-between gap-3">
           <div className="flex gap-3 flex-1">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <Link href={`/u/${id}`} className="rounded-full">
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </Link>
 
             <div className="my-1 flex flex-col gap-[0.2rem]">
+              <h1>Title</h1>
               <Link
                 href={`/u/${id}`}
-                className="hover:underline underline-offset-3"
+                className="text-xs font-thin text-muted-foreground hover:text-foreground hover:underline underline-offset-3 transition-colors"
               >
-                Title
-              </Link>
-              <span className="text-xs font-thin text-muted-foreground">
                 Name of the user : {new Date().toDateString()}
-              </span>
+              </Link>
             </div>
           </div>
 
