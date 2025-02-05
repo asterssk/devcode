@@ -195,16 +195,14 @@ export function SnippetForm() {
           Reset
         </Button>
 
-        <form.Subscribe
-          selector={(state) => [state.isSubmitting]}
-          children={([isSubmitting]) => (
-            // <Button type="submit" disabled={!canSubmit || isSubmitting}>
+        <form.Subscribe selector={(state) => [state.isSubmitting]}>
+          {([isSubmitting]) => (
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? <Loader2 className="animate-spin" /> : null}
               Save changes
             </Button>
           )}
-        />
+        </form.Subscribe>
       </DialogFooter>
     </form>
   );

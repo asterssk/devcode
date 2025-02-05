@@ -17,7 +17,7 @@ export function parseFormData<T extends z.ZodTypeAny>(
   formData: FormData
 ) {
   // Convert FormData into an object
-  const data: Record<string, any> = {};
+  const data: Record<string, unknown> = {};
   for (const [key, value] of formData.entries()) {
     data[key] = value;
   }

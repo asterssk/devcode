@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { parseFormData, parseSchema } from "@/lib/utils";
+import { parseSchema } from "@/lib/utils";
 import { collectionSchema } from "@/lib/schema/collections";
 
 export async function saveCollectionSnippet(

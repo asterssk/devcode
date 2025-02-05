@@ -1,10 +1,10 @@
 import { ReactFormExtendedApi, useStore } from "@tanstack/react-form";
 
-type Props = {
-  form: ReactFormExtendedApi<any, undefined>;
+type Props<T> = {
+  form: ReactFormExtendedApi<T, undefined>;
 };
 
-export function TanstackFormErrorList({ form }: Props) {
+export function TanstackFormErrorList<T>({ form }: Props<T>) {
   const formErrors = useStore(form.store, (formState) => formState.errors);
 
   return (

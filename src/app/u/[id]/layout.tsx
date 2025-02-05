@@ -1,16 +1,10 @@
 import { AppHeader } from "@/components/app-header";
 import { UserProfileStatistics } from "@/components/cards/user-profile-statistics";
-import { SnippetCopiesChart } from "@/components/charts/snippet-copies";
-import { SnippetMenuButton } from "@/components/menus/snippet";
-import { SnippetNav } from "@/components/navs/snippet";
 import { UserProfileNav } from "@/components/navs/user-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
-import { CredButton } from "@/components/ui/cred-button";
-import { Separator } from "@/components/ui/separator";
+import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { StarIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 type Props = { children: ReactNode; params: Promise<{ id: string }> };

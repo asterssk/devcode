@@ -1,14 +1,8 @@
 "use server";
 
 import { snippetSchema } from "@/lib/schema/snippets";
-import { redirect, RedirectType } from "next/navigation";
-import {
-  ServerValidateError,
-  createServerValidate,
-  formOptions,
-} from "@tanstack/react-form/nextjs";
 import { z } from "zod";
-import { parseFormData, parseSchema } from "@/lib/utils";
+import { parseSchema } from "@/lib/utils";
 
 export async function saveCodeSnippet(
   data: Partial<z.infer<typeof snippetSchema>>

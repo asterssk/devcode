@@ -3,6 +3,6 @@ import { sampleItems } from "@/lib/data/sample";
 
 type Props = { params: Promise<{ id: string }> };
 
-export default async function Page({ params }: Props) {
+export default async function Page({}: Props) {
   return <MyCollectionsContent collections={[]} items={sampleItems} />;
 }

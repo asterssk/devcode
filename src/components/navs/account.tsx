@@ -13,7 +13,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 
 type Props = { id: string; className?: string };
 
-export function AccountNav({ id, className }: Props) {
+export function AccountNav({ className }: Props) {
   const segment = useSelectedLayoutSegment();
 
   return (
