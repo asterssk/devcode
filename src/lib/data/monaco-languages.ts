@@ -559,3 +559,5 @@ export const monacoLanguages = [
     mimetypes: ["application/json"],
   },
 ];
+
+export const monacoLanguageIds = monacoLanguages.map((e) => e.id);

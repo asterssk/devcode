@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
   const screenForms = ["snippet"] as const;
 
   return (
-    <Dialog open onOpenChange={() => router.back()}>
+    <Dialog open onOpenChange={(isOpen) => (isOpen ? {} : router.back())}>
       <DialogContent
         className="overflow-clip"
         variant={

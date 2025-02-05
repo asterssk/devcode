@@ -13,7 +13,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.10.0",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.1.3",
@@ -30,6 +29,7 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.7",
+    "@tanstack/react-form": "^0.41.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -40,7 +40,6 @@
     "react": "^19.0.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.2",
     "recharts": "^2.15.0",
     "sonner": "^1.7.2",
     "tailwind-merge": "^2.6.0",
