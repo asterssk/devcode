@@ -31,3 +31,14 @@ export function parseFormData<T extends z.ZodTypeAny>(
 
   return { success: true, data: result.data };
 }
+
+export function parseSchema<T extends z.ZodTypeAny>(
+  schema: T,
+  data: Partial<z.infer<T>>
+) {
+  const result = schema.safeParse(data);
+  const fieldErrors = result.error?.flatten().fieldErrors ?? {};
+  return Object.values(fieldErrors)
+    .flat()
+    .filter((e) => e !== undefined);
+}

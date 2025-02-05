@@ -2,104 +2,152 @@
 
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { collectionSchema } from "@/lib/schema/collections";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ColorPicker } from "@/components/ui/color-picker";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Loader2 } from "lucide-react";
+import { saveCollectionSnippet } from "./_actions";
+import { useRouter } from "next/navigation";
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = { parent_id?: string };
 
 export function CollectionForm({}: Props) {
-  const form = useForm<z.infer<typeof collectionSchema>>({
-    resolver: zodResolver(collectionSchema),
+  const router = useRouter();
+
+  const form = useForm<Partial<z.infer<typeof collectionSchema>>>({
     defaultValues: { visibility: "public" },
+    validators: { onBlur: collectionSchema },
+    onSubmit: async ({ value }) => {
+      const errors = await saveCollectionSnippet(value);
+
+      if (!errors) {
+        toast.success(`Collection ${value.name} created`, {
+          position: "top-right",
+        });
+        router.back();
+      } else {
+        errors.forEach((error) => {
+          toast.error(error, { position: "top-right" });
+        });
+      }
+    },
+    // transform: useTransform((base) => mergeForm(base, state ?? {}), [state]),
   });
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(() => {})}
-        className="flex flex-col gap-6"
-      >
-        <div className="flex flex-col gap-6 px-4 py-4 flex-1">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter collection name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+      className="flex flex-col gap-6"
+    >
+      <div className="flex flex-col gap-6 px-4 py-4 flex-1">
+        <form.Field name="name">
+          {(field) => (
+            <div className="grid gap-2">
+              <Label htmlFor="_name">Name</Label>
+              <Input
+                id="_name"
+                name={field.name}
+                defaultValue={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="Enter collection name"
+              />
+
+              {field.state.meta.errors.map((error) => (
+                <p key={error as string} className="error">
+                  {error}
+                </p>
+              ))}
+            </div>
+          )}
+        </form.Field>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          <form.Field name="visibility">
+            {(field) => (
+              <div className="grid gap-2">
+                <Label htmlFor="_visibility">Visibility</Label>
+                <Select
+                  name={field.name}
+                  defaultValue={field.state.value}
+                  onValueChange={(e: "public" | "private") => {
+                    field.handleChange(e);
+                  }}
+                >
+                  <SelectTrigger id="_visibility">
+                    <SelectValue placeholder="Select visibility" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="public">Public</SelectItem>
+                    <SelectItem value="private">Private</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {field.state.meta.errors.map((error) => (
+                  <p key={error as string} className="error">
+                    {error}
+                  </p>
+                ))}
+              </div>
             )}
-          />
+          </form.Field>
 
-          <div className="flex items-start justify-between">
-            <FormField
-              control={form.control}
-              name="visibility"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Visibility</FormLabel>
-                  <FormControl>
-                    <ToggleGroup
-                      className="flex gap-0 -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse"
-                      type="single"
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    >
-                      <ToggleGroupItem
-                        className="flex-1 rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10"
-                        value="public"
-                      >
-                        Public
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        className="flex-1 rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10"
-                        value="private"
-                      >
-                        Private
-                      </ToggleGroupItem>
-                    </ToggleGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form.Field name="color">
+            {(field) => (
+              <div className="grid gap-2">
+                <Label htmlFor="_color">Color</Label>
+                <ColorPicker
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                />
 
-            <FormField
-              control={form.control}
-              name="color"
-              render={({ field: { value, onChange } }) => (
-                <FormItem>
-                  <FormLabel>Color</FormLabel>
-                  <FormControl>
-                    <ColorPicker value={value ?? ""} onChange={onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+                {field.state.meta.errors.map((error) => (
+                  <p key={error as string} className="error">
+                    {error}
+                  </p>
+                ))}
+              </div>
+            )}
+          </form.Field>
         </div>
+      </div>
 
-        <DialogFooter className="border-t border-border px-4 py-3 sticky bottom-0 bg-background">
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </form>
-    </Form>
+      <DialogFooter className="border-t border-border px-4 py-3 sticky bottom-0 bg-background">
+        <Button
+          type="reset"
+          variant="secondary"
+          className="mr-4"
+          onClick={() => form.reset()}
+        >
+          Reset
+        </Button>
+
+        <form.Subscribe
+          selector={(state) => [state.isSubmitting]}
+          children={([isSubmitting]) => (
+            // <Button type="submit" disabled={!canSubmit || isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader2 className="animate-spin" /> : null}
+              Save changes
+            </Button>
+          )}
+        />
+      </DialogFooter>
+    </form>
   );
 }

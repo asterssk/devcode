@@ -10,7 +10,7 @@ import { useForwardedRef } from "@/hooks/use-forwared-ref";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 interface ColorPickerProps {
-  value: string;
+  value?: string | null;
   onChange: (value: string) => void;
   onBlur?: () => void;
 }
@@ -49,13 +49,11 @@ const ColorPicker = forwardRef<
             <div />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full">
+        <PopoverContent className="w-full flex flex-col gap-2">
           <HexColorPicker color={parsedValue} onChange={onChange} />
           <Input
             maxLength={7}
-            onChange={(e) => {
-              onChange(e?.currentTarget?.value);
-            }}
+            onChange={(e) => onChange(e?.currentTarget?.value)}
             ref={ref}
             value={parsedValue}
           />

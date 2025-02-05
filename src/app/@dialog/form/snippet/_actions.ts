@@ -8,7 +8,7 @@ import {
   formOptions,
 } from "@tanstack/react-form/nextjs";
 import { z } from "zod";
-import { parseFormData } from "@/lib/utils";
+import { parseFormData, parseSchema } from "@/lib/utils";
 
 export async function saveCodeSnippet(
   data: Partial<z.infer<typeof snippetSchema>>
@@ -21,10 +21,6 @@ export async function saveCodeSnippet(
   //     throw error;
   //   }
   //   redirect("/", RedirectType.replace);
-  const result = snippetSchema.safeParse(data);
-  const fieldErrors = result.error?.flatten().fieldErrors ?? {};
-
-  if (Object.keys(fieldErrors).length > 0) {
-    return Object.values(fieldErrors).flat();
-  }
+  const errors = parseSchema(snippetSchema, data);
+  if (errors.length > 0) return errors;
 }
