@@ -29,7 +29,7 @@ export function SnippetForm() {
 
   const form = useForm<Partial<z.infer<typeof snippetSchema>>>({
     defaultValues: { language: "javascript", visibility: "public", tags: [] },
-    validators: { onBlur: snippetSchema },
+    validators: { onChange: snippetSchema },
     onSubmit: async ({ value }) => {
       const errors = await saveCodeSnippet(value);
 
@@ -102,7 +102,7 @@ export function SnippetForm() {
           <form.Field name="tags">
             {(field) => (
               <div className="grid gap-2">
-                <Label htmlFor="_tags">Tags</Label>
+                <Label>Tags</Label>
                 <MultipleSelector
                   inputProps={{ id: "_tags" }}
                   commandProps={{ label: "Select tags" }}

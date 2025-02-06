@@ -11,8 +11,6 @@ export function MyCollectionsToolbar() {
   const segment = useSelectedLayoutSegment();
   const [_view, setView] = useAtom(myCollectionsViewAtom);
 
-  console.log("P", segment);
-
   return (
     <div className="flex gap-2 items-center">
       <Link href={`/form/collection?parent=${segment}`}>
