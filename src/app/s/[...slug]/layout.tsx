@@ -9,19 +9,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { StarIcon } from "lucide-react";
 import { ReactNode } from "react";
 
-type Props = { children: ReactNode; params: Promise<{ snippet: string }> };
+type Props = { children: ReactNode; params: Promise<{ slug: string }> };
 
 export default async function Layout({ children, params }: Props) {
-  const { snippet } = await params;
+  const { slug } = await params;
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem]  items-start">
       <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
-        <AppHeader title={snippet}>
+        <AppHeader title={slug}>
           <SnippetMenuButton className="ml-auto flex-none self-start" />
         </AppHeader>
 
-        <SnippetNav id={snippet} comments={100} />
+        <SnippetNav id={slug} comments={100} />
 
         {children}
 

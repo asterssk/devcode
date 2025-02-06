@@ -41,10 +41,15 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
             </Link>
 
             <div className="my-1 flex flex-col gap-[0.2rem]">
-              <h1>Title</h1>
+              <Link
+                href={`/${id}`}
+                className="hover:underline underline-offset-2"
+              >
+                <h1>Title</h1>
+              </Link>
               <Link
                 href={`/u/${id}`}
-                className="text-xs font-thin text-muted-foreground hover:text-foreground hover:underline underline-offset-3 transition-colors"
+                className="text-xs font-thin text-muted-foreground hover:text-foreground hover:underline underline-offset-2 transition-colors"
               >
                 Name of the user : {new Date().toDateString()}
               </Link>
