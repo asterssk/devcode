@@ -2,9 +2,23 @@ import { AppHeader } from "@/components/app-header";
 import { AccountNav } from "@/components/navs/account";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
+import { kAppName } from "@/constants";
+import { Metadata } from "next";
 import { ReactNode } from "react";
 
 type Props = { children: ReactNode };
+
+export async function generateMetadata(): Promise<Metadata> {
+  // Fetch username
+  const sample = "Sample";
+
+  return {
+    title: {
+      template: `%s - ${sample} - ${kAppName}`,
+      default: `${sample} - ${kAppName}`,
+    },
+  };
+}
 
 export default function Layout({ children }: Props) {
   return (

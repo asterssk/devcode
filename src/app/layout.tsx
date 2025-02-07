@@ -21,6 +21,7 @@ import {
   ThemeProvider,
   ThemeToggler,
 } from "@/components/providers/theme-provider";
+import { RainbowButton } from "@/components/rainbow-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${kAppName}`,
+    template: `%s - ${kAppName}`,
     default: `${kAppName} - ${kAppTagline}`,
   },
   description: kAppDescription,
@@ -43,6 +44,8 @@ export const metadata: Metadata = {
 type Props = { children: ReactNode; dialog: ReactNode };
 
 export default function RootLayout({ children, dialog }: Props) {
+  const isAuthenticated = false;
+
   const sampleLanguages = [
     { label: "Javascript", id: "js" },
     { label: "CSS", id: "css" },
@@ -85,13 +88,22 @@ export default function RootLayout({ children, dialog }: Props) {
 
                   <ThemeToggler />
 
-                  <UserAvatar
-                    user={{
-                      name: "Sample Name Too",
-                      email: "sample@email.only",
-                      avatar: "",
-                    }}
-                  />
+                  {isAuthenticated ? (
+                    <UserAvatar
+                      user={{
+                        name: "Sample Name Too",
+                        email: "sample@email.only",
+                        avatar: "",
+                      }}
+                    />
+                  ) : (
+                    <Link href="/form/auth" passHref>
+                      <RainbowButton>Signin</RainbowButton>
+                      {/* <Button className="h-[2.15rem]" variant="action">
+                        Signin
+                      </Button> */}
+                    </Link>
+                  )}
                 </div>
               </header>
 

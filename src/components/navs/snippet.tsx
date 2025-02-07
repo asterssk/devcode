@@ -3,20 +3,22 @@
 import { cn } from "@/lib/utils";
 import { CodeXmlIcon, MessageCircleCodeIcon } from "lucide-react";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-type Props = { id: string; comments: number };
+type Props = { slug: string[]; comments: number };
 
-export function SnippetNav({ id, comments }: Props) {
-  const segment = useSelectedLayoutSegment();
+export function SnippetNav({ slug, comments }: Props) {
+  const searchParams = useSearchParams();
 
   return (
     <div className="bg-background sticky top-14 z-10 flex items-center border-b">
       <Link
-        href={`/${id}`}
+        href={`/s/${slug.join("/")}?t=code`}
         className={cn(
           "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          !segment ? "border-b-primary" : "border-b-transparent"
+          !searchParams.has("t") || searchParams.get("t") === "code"
+            ? "border-b-primary"
+            : "border-b-transparent"
         )}
       >
         <CodeXmlIcon className="size-4" />
@@ -24,10 +26,12 @@ export function SnippetNav({ id, comments }: Props) {
       </Link>
 
       <Link
-        href={`/${id}/comments`}
+        href={`/s/${slug.join("/")}?t=comments`}
         className={cn(
           "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          segment === "comments" ? "border-b-primary" : "border-b-transparent"
+          searchParams.get("t") === "comments"
+            ? "border-b-primary"
+            : "border-b-transparent"
         )}
       >
         <MessageCircleCodeIcon className="size-4" />

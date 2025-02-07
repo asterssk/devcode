@@ -25,12 +25,15 @@ type Props = {
 };
 
 export function PostSnippet({ id, snippet, savedDate }: Props) {
+  const userHref = `/u/username`;
+  const postHref = `/s/username/${id}`;
+
   return (
     <Card className="rounded-none sm:rounded-md border-r-0 border-l-0 sm:border-l sm:border-r">
       <CardHeader>
         <CardTitle className="flex items-start justify-between gap-3">
           <div className="flex gap-3 flex-1">
-            <Link href={`/u/${id}`} className="rounded-full">
+            <Link href={userHref} className="rounded-full">
               <Avatar>
                 <AvatarImage
                   src="https://github.com/shadcn.png"
@@ -42,13 +45,13 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
 
             <div className="my-1 flex flex-col gap-[0.2rem]">
               <Link
-                href={`/${id}`}
+                href={postHref}
                 className="hover:underline underline-offset-2"
               >
                 <h1>Title</h1>
               </Link>
               <Link
-                href={`/u/${id}`}
+                href={userHref}
                 className="text-xs font-thin text-muted-foreground hover:text-foreground hover:underline underline-offset-2 transition-colors"
               >
                 Name of the user : {new Date().toDateString()}
@@ -85,7 +88,7 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
         </CardDescription>
       </CardHeader>
 
-      <Link href="/sadasd">
+      <Link href={postHref}>
         <CardContent
           className={cn(
             "relative px-0 bg-gray-200 dark:bg-gray-950 border-t border-b",
@@ -131,7 +134,7 @@ export function PostSnippet({ id, snippet, savedDate }: Props) {
             onDownvote={() => {}}
           />
 
-          <Link href={`/${id}/comments`}>
+          <Link href={`${postHref}?t=comment`}>
             <Button
               size="xs"
               variant="secondary"

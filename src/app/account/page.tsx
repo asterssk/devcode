@@ -1,59 +1,72 @@
 import { Button } from "@/components/ui/button";
-import { FilterIcon, SlidersHorizontalIcon, SortDescIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = { title: "Posts" };
 
 export default function Page() {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex justify-between gap-4">
-        <Button variant="secondary" size="xs">
-          <FilterIcon />
-          Filter
-        </Button>
-
-        <Button variant="secondary" size="xs">
-          <SortDescIcon />
-          Sort
-        </Button>
-
-        <div className="ml-auto" />
-
-        <Link href="/posts" passHref>
-          <Button variant="secondary" size="xs">
-            <SlidersHorizontalIcon />
-            Manage Posts
-          </Button>
-        </Link>
+      <div className="flex flex-col gap-2">
+        <h2>Tags</h2>
       </div>
 
-      <p>START</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>content</p>
-      <p>END</p>
+      <div className="flex flex-col gap-2">
+        <h2>Credibility</h2>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <h2>Posts</h2>
+
+          <Link href="/posts" passHref>
+            <Button variant="transparent" size="xs" className="group">
+              Manage
+              <ChevronRight className="transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <h2>Followed Posts</h2>
+
+          <Link href="/posts" passHref>
+            <Button variant="transparent" size="xs" className="group">
+              More
+              <ChevronRight className="transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <h2>Upvotes</h2>
+
+          <Link href="/posts" passHref>
+            <Button variant="transparent" size="xs" className="group">
+              More
+              <ChevronRight className="transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <h2>Downvotes</h2>
+
+          <Link href="/posts" passHref>
+            <Button variant="transparent" size="xs" className="group">
+              More
+              <ChevronRight className="transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,7 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import { CommentComponent } from "@/components/ui/comments";
+import { CopyIcon, MessageCircleCodeIcon } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -83,7 +86,7 @@ const sampleComments: Comment[] = [
   },
 ];
 
-export default function Page() {
+export function SnippetCommentsSection() {
   return (
     <div className="w-full flex flex-col gap-4">
       {sampleComments.map((comment) => (

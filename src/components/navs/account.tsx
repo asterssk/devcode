@@ -30,8 +30,8 @@ export function AccountNav({ className }: Props) {
           !segment ? "border-b-primary" : "border-b-transparent"
         )}
       >
-        <CodeXmlIcon className="size-4" />
-        Posts
+        <ActivityIcon className="size-4" />
+        Activity
       </Link>
 
       <Link
@@ -54,17 +54,6 @@ export function AccountNav({ className }: Props) {
       >
         <UsersIcon className="size-4" />
         Followers
-      </Link>
-
-      <Link
-        href={`/account/activities`}
-        className={cn(
-          "border-b-2 px-4 py-2.5 text-sm flex items-center gap-2 transition-colors",
-          segment === "activities" ? "border-b-primary" : "border-b-transparent"
-        )}
-      >
-        <ActivityIcon className="size-4" />
-        Activities
       </Link>
 
       <Link

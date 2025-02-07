@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { FilterIcon, SlidersHorizontalIcon } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Following" };
 
 export default function Page() {
   return (

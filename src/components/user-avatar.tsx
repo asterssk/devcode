@@ -24,11 +24,9 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export function UserAvatar({
-  user,
-}: {
-  user: { name: string; email: string; avatar: string };
-}) {
+type Props = { user: { name: string; email: string; avatar: string } };
+
+export function UserAvatar({ user }: Props) {
   const { isMobile } = useSidebar();
 
   return (

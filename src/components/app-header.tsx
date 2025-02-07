@@ -12,17 +12,22 @@ export function AppHeader({ title, className, children }: Props) {
   const router = useRouter();
 
   return (
-    <div className={cn("flex gap-4 items-center justify-between", className)}>
-      <div className="flex items-center gap-5">
-        <Button size="icon" variant="secondary" onClick={() => router.back()}>
-          <ArrowLeftIcon />
-        </Button>
-        {typeof title === "string" ? (
-          <h1 className="flex-1 text-xl">{title}</h1>
-        ) : (
-          title
-        )}
-      </div>
+    <div
+      className={cn(
+        "flex gap-4 items-center",
+        children ? "justify-between" : "justify-start",
+        className
+      )}
+    >
+      <Button size="icon" variant="secondary" onClick={() => router.back()}>
+        <ArrowLeftIcon />
+      </Button>
+
+      {typeof title === "string" ? (
+        <h1 className="flex-1 text-xl">{title}</h1>
+      ) : (
+        title
+      )}
 
       {children}
     </div>
