@@ -21,7 +21,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function SearchSnippetButton() {
   const [open, setOpen] = React.useState(false);

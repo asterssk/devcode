@@ -1,7 +1,7 @@
 "use client";
 
 import { CollectionCard } from "@/components/cards/collection";
-import { CollectionMenuButton } from "@/components/menus/collection";
+import { CollectionMenuButton } from "@/components/global/menus/collection";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";

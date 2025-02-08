@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSidebar } from "@/components/ui/sidebar";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 

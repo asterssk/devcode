@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { monacoLanguages } from "@/lib/data/monaco-languages";
-import { TanstackFormErrorList } from "@/components/tanstack-errors";
 import { saveCodeSnippet } from "./_actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -75,8 +74,6 @@ export function SnippetForm() {
         </form.Subscribe>
 
         <div className="flex flex-col gap-2 md:gap-4 p-4 border-t md:border-t-0">
-          <TanstackFormErrorList form={form} />
-
           <form.Field name="title">
             {(field) => (
               <div className="grid gap-2">

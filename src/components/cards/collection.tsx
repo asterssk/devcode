@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription } from "../ui/card";
-import { CollectionMenuButton } from "../menus/collection";
+import { CollectionMenuButton } from "../global/menus/collection";
 
 type Props = { title: string };
 

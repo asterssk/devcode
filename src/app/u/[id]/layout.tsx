@@ -1,6 +1,6 @@
-import { AppHeader } from "@/components/app-header";
 import { UserProfileStatistics } from "@/components/cards/user-profile-statistics";
-import { UserProfileNav } from "@/components/navs/user-profile";
+import { AppHeader } from "@/components/global/app-header";
+import { UserProfileNav } from "@/components/global/navs/user-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";

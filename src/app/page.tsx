@@ -1,4 +1,5 @@
-import { PostSnippet } from "@/components/cards/post-snippet";
+import SnippetPost from "@/components/snippet-post";
+import { getDummySnippetPosts } from "@/components/snippet-post/_action";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -36,8 +37,8 @@ const collections = [
 
 type Props = { searchParams: Promise<{ lang?: string; framework?: string }> };
 
-export default async function Page({ searchParams }: Props) {
-  const { lang } = await searchParams;
+export default async function Page({}: Props) {
+  const posts = await getDummySnippetPosts(10);
 
   const groupedCollections = Object.groupBy(
     collections,
@@ -52,10 +53,9 @@ export default async function Page({ searchParams }: Props) {
           "flex flex-col gap-4"
         )}
       >
-        <PostSnippet id="sample_1" snippet={{ status: "down" }} />
-        <PostSnippet id="sample_2" snippet={{ status: "down" }} />
-        <PostSnippet id="sample_3" snippet={{ status: "up" }} />
-        <PostSnippet id="sample_4" snippet={{}} />
+        {posts.map((post) => (
+          <SnippetPost key={post.id} snippet={post} />
+        ))}
       </div>
 
       <div className={cn("sticky top-14 hidden lg:flex flex-col h-rest")}>
@@ -64,7 +64,7 @@ export default async function Page({ searchParams }: Props) {
             href="/collections"
             className="text-sm font-semibold hover:underline underline-offset-2"
           >
-            MY COLLECTIONS {lang}
+            MY COLLECTIONS
           </Link>
 
           <Link href="/form/collection" passHref>

@@ -1,15 +1,15 @@
 import { EllipsisIcon, FlagIcon, PlusIcon, UserCheckIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 type Props = { className?: string };
 
-export function SnippetMenuButton({ className }: Props) {
+export function SnippetOptionsMenu({ className }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +28,7 @@ export function SnippetMenuButton({ className }: Props) {
 
         <DropdownMenuItem>
           <UserCheckIcon />
-          Follow
+          Follow author
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

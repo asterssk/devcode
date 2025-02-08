@@ -1,9 +1,16 @@
-import { AppHeader } from "@/components/app-header";
-import { SnippetCopiesChart } from "@/components/charts/snippet-copies";
-import { SnippetMenuButton } from "@/components/menus/snippet";
-import { SnippetNav } from "@/components/navs/snippet";
+import { AppHeader } from "@/components/global/app-header";
+import { SnippetCopiesChart } from "@/components/global/charts/snippet-copies";
+import { SnippetOptionsMenu } from "@/components/global/menus/snippet";
+import { SnippetShareMenu } from "@/components/global/menus/snippet-share";
+import { SnippetNav } from "@/components/global/navs/snippet";
+import { SnippetCredButton } from "@/components/global/snippet-cred-button";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { StarIcon } from "lucide-react";
@@ -18,7 +25,7 @@ export default async function Layout({ children, params }: Props) {
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem]  items-start">
       <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
         <AppHeader title={slug.at(-1)}>
-          <SnippetMenuButton className="flex-none self-start" />
+          <SnippetOptionsMenu className="flex-none self-start" />
         </AppHeader>
 
         <SnippetNav slug={slug} comments={100} />
@@ -54,6 +61,24 @@ export default async function Layout({ children, params }: Props) {
             </div>
             <SnippetCopiesChart />
           </CardContent>
+
+          <CardFooter className="border-t">
+            <SnippetCredButton
+              state="idle"
+              votes={212}
+              upvoteAction={async () => {
+                "use server";
+              }}
+              downvoteAction={async () => {
+                "use server";
+              }}
+            />
+
+            <SnippetShareMenu
+              url="a6d80e2f-6158-4919-912c-1dacf2e1f846"
+              className="border"
+            />
+          </CardFooter>
         </Card>
 
         <Card className="p-4">ABOUT THE AUTHOR</Card>

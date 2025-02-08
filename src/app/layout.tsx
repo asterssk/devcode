@@ -8,20 +8,17 @@ import {
 } from "@/components/ui/sidebar";
 import { kAppDescription, kAppName, kAppTagline } from "@/constants";
 import "./globals.css";
-import SearchSnippetButton from "@/components/search-snippet-button";
-import { UserAvatar } from "@/components/user-avatar";
+import { UserAvatar } from "@/components/global/user-avatar";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import Link from "next/link";
-import { AppSidebar } from "@/components/navs/app-sidebar";
+import { AppSidebar } from "@/components/global/navs/app-sidebar";
 import { ReactNode } from "react";
-import {
-  ThemeProvider,
-  ThemeToggler,
-} from "@/components/providers/theme-provider";
-import { RainbowButton } from "@/components/rainbow-button";
+import { ThemeProvider, ThemeToggler } from "@/components/theme-provider";
+import { RainbowButton } from "@/components/global/rainbow-button";
+import SearchSnippetButton from "@/components/global/search-snippet-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,11 +71,11 @@ export default function RootLayout({ children, dialog }: Props) {
                 <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
                   <Tooltip delayDuration={500}>
                     <TooltipTrigger asChild>
-                      <Link href="/form/snippet" passHref>
-                        <Button size="icon" variant="outline">
+                      <Button size="icon" asChild variant="outline">
+                        <Link href="/form/snippet">
                           <PlusIcon />
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     </TooltipTrigger>
 
                     <TooltipContent>
@@ -99,9 +96,6 @@ export default function RootLayout({ children, dialog }: Props) {
                   ) : (
                     <Link href="/form/auth" passHref>
                       <RainbowButton>Signin</RainbowButton>
-                      {/* <Button className="h-[2.15rem]" variant="action">
-                        Signin
-                      </Button> */}
                     </Link>
                   )}
                 </div>

@@ -1,6 +1,10 @@
 "use client";
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "../../ui/chart";
 import { Area, AreaChart, XAxis } from "recharts";
 
 export function SnippetCopiesChart() {

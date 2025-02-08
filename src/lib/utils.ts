@@ -1,10 +1,37 @@
 import { clsx, type ClassValue } from "clsx";
+import { ReadonlyURLSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function waitTimeout(ms?: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms ?? 100));
+}
+
+export function normalizeCount(count: number) {
+  if (Math.abs(count) >= 1_000_000_000) {
+    return `${(count / 1_000_000_000).toFixed(1).replace(/\.0$/, "")}B`;
+  }
+  if (Math.abs(count) >= 1_000_000) {
+    return `${(count / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+  }
+  if (Math.abs(count) >= 1_000) {
+    return `${(count / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
+  }
+  return count.toString();
+}
+
+export const createUrl = (
+  pathname: string,
+  params: URLSearchParams | ReadonlyURLSearchParams
+) => {
+  const paramsString = params.toString();
+  const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
+  return `${pathname}${queryString}`;
+};
 
 /**
  * Generic form parser that validates FormData against a Zod schema.

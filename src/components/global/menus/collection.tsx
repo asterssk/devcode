@@ -1,12 +1,12 @@
 import { EditIcon, EllipsisIcon, TrashIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import Link from "next/link";
 
 type Props = { className?: string };

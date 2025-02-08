@@ -3,7 +3,7 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 type Props = { title?: ReactNode; className?: string; children?: ReactNode };

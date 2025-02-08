@@ -56,12 +56,12 @@ export function AppSidebar({ languages, ...props }: Props) {
                   segments.includes(item.url.split("/").at(-1) ?? "");
 
                 return (
-                  <Link key={item.url} href={item.url} passHref>
-                    <SidebarMenuButton isActive={isActive}>
+                  <SidebarMenuButton key={item.url} isActive={isActive} asChild>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </Link>
+                    </Link>
+                  </SidebarMenuButton>
                 );
               })}
             </SidebarMenuItem>
