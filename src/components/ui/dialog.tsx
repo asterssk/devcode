@@ -7,8 +7,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const positioning = {
-  default: `left-[50%] top-[50%] w-full max-w-lg translate-x-[-50%] translate-y-[-50%] sm:rounded-lg`,
-  screen: `h-full min-w-full w-full sm:rounded-none md:border-solid md:rounded-lg md:h-rest md:max-w-screen-lg sm:w-[95%]`,
+  default: `left-[50%] top-[50%] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] sm:rounded-lg`,
+  screen: `min-w-full sm:rounded-none md:border-solid md:rounded-lg md:h-rest md:max-w-screen-lg sm:w-[95%]`,
   full: "inset-0 w-screen h-screen rounded-none border-none",
 };
 
@@ -18,7 +18,7 @@ const animations = {
 };
 
 const dialogVariants = cva(
-  "fixed z-50 grid gap-4 border bg-background shadow-lg duration-200 overflow-clip",
+  "fixed z-50 grid gap-4 border bg-background shadow-lg duration-200 overflow-clip h-full w-full sm:h-auto",
   {
     variants: {
       variant: {

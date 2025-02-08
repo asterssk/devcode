@@ -40,8 +40,8 @@ export function SignUpForm({ className }: Props) {
         />
       </div>
 
-      <Button type="submit" className="w-full h-10 text-md mt-auto">
-        Create account
+      <Button type="submit" className="w-full h-10 text-md">
+        Create Account
       </Button>
     </form>
   );
