@@ -10,7 +10,7 @@ import { Area, AreaChart, XAxis } from "recharts";
 export function SnippetCopiesChart() {
   return (
     <ChartContainer
-      className="h-[110px] w-full"
+      className="h-[70px] w-full"
       config={{
         desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
       }}

@@ -7,7 +7,6 @@ import {
   ChevronUp,
   MessageCircleIcon,
   MessageCircleXIcon,
-  StarIcon,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { CommentCredButton } from "../global/comment-cred-button";
 
 interface Comment {
   id: string;
@@ -32,7 +32,7 @@ interface Comment {
 type Props = { comment: Comment; level?: number };
 
 export function CommentComponent({ comment, level = 0 }: Props) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(level === 0);
   const [isReplying, setIsReplying] = useState<string>();
   const [replyContent, setReplyContent] = useState("");
 
@@ -90,10 +90,13 @@ export function CommentComponent({ comment, level = 0 }: Props) {
         style={{ marginLeft: `${indent}rem`, marginRight: `${indent}rem` }}
       >
         <div className="flex gap-4">
-          <Button variant="transparent" size="fit">
-            <StarIcon />
-            Stars (2)
-          </Button>
+          <CommentCredButton
+            // state="downvoted"
+            state="idle"
+            votes={10}
+            upvoteAction={async () => {}}
+            downvoteAction={async () => {}}
+          />
 
           <Button
             variant="transparent"

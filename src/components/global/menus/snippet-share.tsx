@@ -9,9 +9,13 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-type Props = { url: string; className?: string };
+type Props = {
+  url: string;
+  className?: string;
+  variant?: "secondary" | "ghost";
+};
 
-export function SnippetShareMenu({ url, className }: Props) {
+export function SnippetShareMenu({ url, variant, className }: Props) {
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopy = () => {
@@ -24,17 +28,13 @@ export function SnippetShareMenu({ url, className }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          size="xs"
-          variant="secondary"
-          className={cn("ml-auto border", className)}
-        >
-          Share
+        <Button size="xs" variant={variant ?? "ghost"} className={className}>
           <CornerUpRightIcon />
+          Share
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-96" side="left" align="end">
+      <PopoverContent className="w-80" side="left" align="end">
         <div className="grid gap-4">
           <h4 className="font-medium leading-none">Share</h4>
 

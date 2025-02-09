@@ -1,4 +1,4 @@
-import { AppHeader } from "@/components/app-header";
+import { AppHeader } from "@/components/global/app-header";
 import { AccountNav } from "@/components/global/navs/account";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";

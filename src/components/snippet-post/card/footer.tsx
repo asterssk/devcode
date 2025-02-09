@@ -18,7 +18,7 @@ export function PostSnippetCardFooter() {
   const downvoteWithId = downvoteSnippetPostAction.bind(null, snippet.id);
 
   return (
-    <CardFooter className="flex items-center justify-between gap-3">
+    <CardFooter className="flex items-center justify-between gap-4">
       <SnippetCredButton
         state={snippet.vote_action}
         votes={snippet.voted_count}
@@ -32,21 +32,32 @@ export function PostSnippetCardFooter() {
         }}
       />
 
-      <Button size="xs" variant="secondary" asChild>
+      <Button
+        size="xs"
+        variant="secondary"
+        asChild
+        className="p-0 gap-0 overflow-clip"
+      >
         <Link
           href={`${urls.post}?t=comment`}
-          className="flex items-center gap-2 border"
+          className="flex items-center border gap-0"
         >
-          <MessageCircleIcon />
-          <span>Comments</span>
+          <div className="px-3 py-2 flex items-center gap-2">
+            <MessageCircleIcon />
+            <span>Comments</span>
+          </div>
+
           <Separator orientation="vertical" />
-          <span className="text-xs">
+          <span className="text-xs px-2 bg-background h-full flex items-center">
             {normalizeCount(snippet.comments_count)}
           </span>
         </Link>
       </Button>
 
-      <SnippetShareMenu url="a6d80e2f-6158-4919-912c-1dacf2e1f846" />
+      <SnippetShareMenu
+        url="a6d80e2f-6158-4919-912c-1dacf2e1f846"
+        className="ml-auto"
+      />
     </CardFooter>
   );
 }

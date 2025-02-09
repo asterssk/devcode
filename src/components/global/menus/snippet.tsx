@@ -1,4 +1,9 @@
-import { EllipsisIcon, FlagIcon, PlusIcon, UserCheckIcon } from "lucide-react";
+import {
+  BookmarkIcon,
+  EllipsisIcon,
+  FlagIcon,
+  UserCheckIcon,
+} from "lucide-react";
 import { Button } from "../../ui/button";
 import {
   DropdownMenu,
@@ -22,8 +27,8 @@ export function SnippetOptionsMenu({ className }: Props) {
         align="end"
       >
         <DropdownMenuItem>
-          <PlusIcon />
-          Add to collection
+          <BookmarkIcon />
+          Save to collection
         </DropdownMenuItem>
 
         <DropdownMenuItem>

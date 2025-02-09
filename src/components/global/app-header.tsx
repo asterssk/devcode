@@ -14,7 +14,7 @@ export function AppHeader({ title, className, children }: Props) {
   return (
     <div
       className={cn(
-        "flex gap-4 items-center",
+        "flex gap-4 items-center px-4 sm:px-0",
         children ? "justify-between" : "justify-start",
         className
       )}

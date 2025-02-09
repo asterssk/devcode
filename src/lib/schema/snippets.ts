@@ -16,6 +16,7 @@ export const snippetSchema = z.object({
   tags: z.array(z.object({ value: z.string(), label: z.string() }), {
     message: "Invalid tag type",
   }),
+  collection_id: z.string().nullish(),
   visibility: z.enum(["public", "private"], {
     message: "Please select a valid visibility type",
   }),
