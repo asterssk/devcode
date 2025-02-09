@@ -1,6 +1,6 @@
 "use server";
 
-import { TSnippetPost } from "@/lib/types/snippet-post";
+import { TSnippetPost } from "@/lib/types/snippet";
 import { waitTimeout } from "@/lib/utils";
 
 export async function getDummySnippetPosts(count: number) {

@@ -1,4 +1,4 @@
-import { TSnippetPost } from "@/lib/types/snippet-post";
+import { TSnippetPost } from "@/lib/types/snippet";
 
 type SnippetPostAction = "UPVOTE" | "DOWNVOTE";
 

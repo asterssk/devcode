@@ -1,6 +1,6 @@
 "use client";
 
-import { TSnippetPost } from "@/lib/types/snippet-post";
+import { TSnippetPost } from "@/lib/types/snippet";
 import React, {
   createContext,
   useContext,

@@ -39,7 +39,7 @@ export function PostSnippetCardFooter() {
         className="p-0 gap-0 overflow-clip"
       >
         <Link
-          href={`${urls.post}?t=comment`}
+          href={`${urls.post}?t=comments`}
           className="flex items-center border gap-0"
         >
           <div className="px-3 py-2 flex items-center gap-2">

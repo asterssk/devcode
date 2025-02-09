@@ -12,7 +12,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { BookmarkIcon, MessageCircleIcon, User2Icon } from "lucide-react";
+import { CommentField } from "@/components/ui/comment-field";
+import { User2Icon } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -22,25 +23,26 @@ export default async function Layout({ children, params }: Props) {
   const { slug } = await params;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem] items-start">
-      <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg py-6 sm:px-4 md:px-8">
-        <AppHeader title={slug.at(-1)}>
+    <div className="grid grid-cols-1 xl:grid-cols-[1fr_19rem] items-start">
+      <div className="h-full flex flex-col gap-4 container mx-auto max-w-screen-lg pt-6 ">
+        <AppHeader title={slug.at(-1)} className="sm:px-4 md:px-8">
           <SnippetOptionsMenu className="flex-none self-start" />
         </AppHeader>
 
         <SnippetNav slug={slug} comments={100} />
 
-        {/* <form className="flex items-start gap-2">
-          <Textarea placeholder="Start typing..." />
-          <Button type="submit" className="self-end">
-            Add comment
-          </Button>
-        </form> */}
-
         {children}
+        {/* <div className="sm:px-4 md:px-8 flex-1">{children}</div> */}
+
+        <CommentField
+          shrinkable
+          placeholder="Write a comment..."
+          labels={{ submit: "Post Comment" }}
+          className="sticky bottom-0 bg-background z-10 border-0 border-t rounded-none focus-within:border-input p-1"
+        />
       </div>
 
-      <div className="sticky top-14 py-6 pr-4 hidden xl:flex flex-col gap-4">
+      <div className="sticky top-14 p-3 hidden xl:flex flex-col gap-4 border-l h-rest">
         <Card>
           <CardHeader>
             <div className="flex justify-between gap-4">
@@ -79,49 +81,20 @@ export default async function Layout({ children, params }: Props) {
           </CardContent>
         </Card>
 
-        <Card>
-          {/* <CardHeader className="flex ">
-            <h2>Language</h2>
-          </CardHeader>
+        <div className="flex flex-col gap-2">
+          <SnippetCredButton
+            state="idle"
+            votes={212}
+            upvoteAction={async () => {
+              "use server";
+            }}
+            downvoteAction={async () => {
+              "use server";
+            }}
+          />
 
-          <CardContent className="pt-3 space-y-2">
-            <SnippetCopiesChart />
-          </CardContent> */}
-
-          <CardFooter className="grid gap-4">
-            {/* <div className="flex justify-between w-full items-center"> */}
-            <SnippetCredButton
-              state="idle"
-              votes={212}
-              upvoteAction={async () => {
-                "use server";
-              }}
-              downvoteAction={async () => {
-                "use server";
-              }}
-            />
-
-            <div className="grid grid-cols-2 gap-3">
-              <Button
-                size="xs"
-                variant="secondary"
-                className="border w-full"
-                asChild
-              >
-                <Link href={`/form/comment?id=asdsr3241223&intent=write`}>
-                  <MessageCircleIcon />
-                  Comment
-                </Link>
-              </Button>
-
-              <SnippetShareMenu
-                url={""}
-                variant="secondary"
-                className="border"
-              />
-            </div>
-          </CardFooter>
-        </Card>
+          <SnippetShareMenu url={""} variant="secondary" className="border" />
+        </div>
       </div>
     </div>
   );

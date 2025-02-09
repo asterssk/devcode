@@ -1,49 +1,63 @@
-import { CommentComponent } from "@/components/ui/comments";
+import CommentItem from "@/components/comment-item";
+import { CommentField } from "@/components/ui/comment-field";
+import { TComment } from "@/lib/types/comment";
+import { useState } from "react";
 
-interface Comment {
-  id: string;
-  author: string;
-  avatar: string;
-  content: string;
-  timestamp: string;
-  replies?: Comment[];
-}
-
-const sampleComments: Comment[] = [
+const sampleComments: TComment[] = [
   {
     id: "1",
-    author: "Alice",
-    avatar: "/placeholder.svg?height=40&width=40",
+    username: "",
+    author_name: "Alice",
+    author_avatar: "/placeholder.svg?height=40&width=40",
     content: "This is a great post!",
-    timestamp: "2 hours ago",
+    vote_action: "upvoted",
+    votes: 100,
+    voted_count: 100,
+    commented_at: "2 hours ago",
     replies: [
       {
         id: "2",
-        author: "Bob",
-        avatar: "/placeholder.svg?height=40&width=40",
+        username: "",
+        author_name: "Bob",
+        author_avatar: "/placeholder.svg?height=40&width=40",
         content: "I agree, very insightful.",
-        timestamp: "1 hour ago",
+        vote_action: "idle",
+        votes: 100,
+        voted_count: 100,
+        commented_at: "1 hour ago",
         replies: [
           {
             id: "3",
-            author: "Charlie",
-            avatar: "/placeholder.svg?height=40&width=40",
+            username: "",
+            author_name: "Charlie",
+            author_avatar: "/placeholder.svg?height=40&width=40",
             content: "I have a different perspective...",
-            timestamp: "30 minutes ago",
+            vote_action: "idle",
+            votes: 100,
+            voted_count: 100,
+            commented_at: "30 minutes ago",
           },
           {
             id: "11",
-            author: "Charlie Poot",
-            avatar: "/placeholder.svg?height=40&width=40",
+            username: "",
+            author_name: "Charlie Poot",
+            author_avatar: "/placeholder.svg?height=40&width=40",
             content: "I have a different perspective you shit...",
-            timestamp: "30 minutes ago",
+            vote_action: "idle",
+            votes: 100,
+            voted_count: 100,
+            commented_at: "30 minutes ago",
             replies: [
               {
                 id: "3",
-                author: "Charlie",
-                avatar: "/placeholder.svg?height=40&width=40",
+                username: "",
+                author_name: "Charlie",
+                author_avatar: "/placeholder.svg?height=40&width=40",
                 content: "I have a different perspective...",
-                timestamp: "30 minutes ago",
+                vote_action: "idle",
+                votes: 100,
+                voted_count: 100,
+                commented_at: "30 minutes ago",
               },
             ],
           },
@@ -51,24 +65,36 @@ const sampleComments: Comment[] = [
       },
       {
         id: "bbb",
-        author: "Bob",
-        avatar: "/placeholder.svg?height=40&width=40",
+        username: "",
+        author_name: "Bob",
+        author_avatar: "/placeholder.svg?height=40&width=40",
         content: "I agree, very insightful.",
-        timestamp: "1 hour ago",
+        vote_action: "downvoted",
+        votes: 100,
+        voted_count: 100,
+        commented_at: "1 hour ago",
         replies: [
           {
             id: "3",
-            author: "Charlie",
-            avatar: "/placeholder.svg?height=40&width=40",
+            username: "",
+            author_name: "Charlie",
+            author_avatar: "/placeholder.svg?height=40&width=40",
             content: "I have a different perspective...",
-            timestamp: "30 minutes ago",
+            vote_action: "idle",
+            votes: 100,
+            voted_count: 100,
+            commented_at: "30 minutes ago",
           },
           {
             id: "11",
-            author: "Charlie Poot",
-            avatar: "/placeholder.svg?height=40&width=40",
+            username: "",
+            author_name: "Charlie Poot",
+            author_avatar: "/placeholder.svg?height=40&width=40",
             content: "I have a different perspective you shit...",
-            timestamp: "30 minutes ago",
+            vote_action: "idle",
+            votes: 100,
+            voted_count: 100,
+            commented_at: "30 minutes ago",
           },
         ],
       },
@@ -76,18 +102,24 @@ const sampleComments: Comment[] = [
   },
   {
     id: "4",
-    author: "David",
-    avatar: "/placeholder.svg?height=40&width=40",
+    username: "",
+    author_name: "David",
+    author_avatar: "/placeholder.svg?height=40&width=40",
     content: "Interesting points, but I'm not sure I agree with everything.",
-    timestamp: "3 hours ago",
+    vote_action: "idle",
+    votes: 100,
+    voted_count: 100,
+    commented_at: "3 hours ago",
   },
 ];
 
 export function SnippetCommentsSection() {
+  const [comments, setComments] = useState(sampleComments);
+
   return (
     <div className="w-full flex flex-col gap-4">
-      {sampleComments.map((comment) => (
-        <CommentComponent key={comment.id} comment={comment} />
+      {comments.map((comment) => (
+        <CommentItem key={comment.id} comment={comment} />
       ))}
     </div>
   );

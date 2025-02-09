@@ -1,4 +1,4 @@
-import { TSnippetPost } from "@/lib/types/snippet-post";
+import { TSnippetPost } from "@/lib/types/snippet";
 import { Card } from "../ui/card";
 import { PostSnippetCardContent } from "./card/content";
 import { PostSnippetCardHeader } from "./card/header";

@@ -11,7 +11,7 @@ export function SnippetTabs() {
   const t = searchParams.get("t") ?? "code";
 
   return (
-    <Tabs defaultValue="code" value={t}>
+    <Tabs defaultValue="code" value={t} className="px-2 sm:px-4 md:px-8 flex-1">
       <TabsContent value="code">
         <SnippetCodeSection />
       </TabsContent>

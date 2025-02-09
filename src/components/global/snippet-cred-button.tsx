@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn, normalizeCount } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { TVoteAction } from "@/lib/types/snippet-post";
+import { TVoteAction } from "@/lib/types/";
 
 type Props = {
   className?: string;
