@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Posts" };
+export const metadata: Metadata = { title: "Activity" };
 
 export default function Page() {
   return (
