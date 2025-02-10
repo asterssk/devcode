@@ -14,7 +14,7 @@ type Props = {
   placeholder?: string;
   className?: string;
   labels?: { submit?: string; cancel?: string };
-  oncancel?: () => void;
+  onCancel?: () => void;
   onSubmit?: (value: string) => void;
 };
 
@@ -24,12 +24,18 @@ export function CommentField({
   value,
   placeholder,
   labels,
-  oncancel,
+  onCancel,
   onSubmit,
 }: Props) {
   const [shrinked, setShrinked] = useState(shrinkable ?? false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleCancel = () => {
+    onCancel?.();
+    if (textAreaRef.current) textAreaRef.current.value = "";
+    if (shrinkable) setShrinked(true);
+  };
 
   const handleSubmit = () => {
     const content = textAreaRef.current?.value;
@@ -40,12 +46,6 @@ export function CommentField({
 
     onSubmit?.(content);
     handleCancel();
-  };
-
-  const handleCancel = () => {
-    oncancel?.();
-    if (textAreaRef.current) textAreaRef.current.value = "";
-    if (shrinkable) setShrinked(true);
   };
 
   if (shrinkable && shrinked) {
@@ -108,11 +108,12 @@ export function CommentField({
             size="xs"
             variant="secondary"
             className="border"
+            type="button"
           >
             {labels?.cancel ?? "Cancel"}
           </Button>
 
-          <Button size="xs" onClick={handleSubmit}>
+          <Button size="xs" onClick={handleSubmit} type="button">
             {labels?.submit ?? "Comment"}
           </Button>
         </div>

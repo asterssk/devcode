@@ -60,7 +60,7 @@ export default function Page() {
             "px-6 py-8 sm:px-10 gap-4 sm:gap-8"
           )}
         >
-          <div className="flex flex-col relative">
+          <div className="flex flex-col relative h-[22rem]">
             <SignInForm
               onRecoveryClick={() => setActiveForm("reset")}
               className={cn(

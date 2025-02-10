@@ -23,11 +23,20 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-type Props = { user: { name: string; email: string; avatar: string } };
+type Props = { user: { name: string; email: string; avatar?: string | null } };
 
 export function UserAvatar({ user }: Props) {
+  const router = useRouter();
   const { isMobile } = useSidebar();
+
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: { onSuccess: () => router.refresh() },
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -46,7 +55,7 @@ export function UserAvatar({ user }: Props) {
               isMobile ? "size-[2.25rem]" : "size-[1.85rem]"
             )}
           >
-            <AvatarImage src={user.avatar} alt={user.name} />
+            <AvatarImage src={user.avatar ?? ""} alt={user.name} />
             <AvatarFallback
               className={cn("rounded-md", isMobile ? "bg-transparent" : "")}
             >
@@ -71,7 +80,7 @@ export function UserAvatar({ user }: Props) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
+              <AvatarImage src={user.avatar ?? ""} alt={user.name} />
               <AvatarFallback className="rounded-lg">
                 <UserIcon className="size-4" />
               </AvatarFallback>
@@ -114,7 +123,7 @@ export function UserAvatar({ user }: Props) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleSignOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>

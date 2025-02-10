@@ -20,7 +20,7 @@ export function CommentCardReply() {
       <CommentField
         placeholder={`Write your reply to ${comment.author_name}`}
         labels={{ submit: "Post Reply" }}
-        oncancel={cancelReply}
+        onCancel={cancelReply}
         onSubmit={() => {
           cancelReply();
         }}

@@ -26,7 +26,7 @@ export function CommentCardContent() {
           value={comment.content}
           placeholder="Edit comment..."
           labels={{ submit: "Update Comment" }}
-          oncancel={cancelEdit}
+          onCancel={cancelEdit}
           onSubmit={() => {
             cancelEdit();
           }}

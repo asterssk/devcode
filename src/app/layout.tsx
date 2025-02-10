@@ -19,6 +19,8 @@ import { ReactNode } from "react";
 import { ThemeProvider, ThemeToggler } from "@/components/theme-provider";
 import { RainbowButton } from "@/components/global/rainbow-button";
 import SearchSnippetButton from "@/components/global/search-snippet-button";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,8 +42,8 @@ export const metadata: Metadata = {
 
 type Props = { children: ReactNode; dialog: ReactNode };
 
-export default function RootLayout({ children, dialog }: Props) {
-  const isAuthenticated = false;
+export default async function RootLayout({ children, dialog }: Props) {
+  const session = await auth.api.getSession({ headers: await headers() });
 
   const sampleLanguages = [
     { label: "Javascript", id: "js" },
@@ -85,12 +87,12 @@ export default function RootLayout({ children, dialog }: Props) {
 
                   <ThemeToggler />
 
-                  {isAuthenticated ? (
+                  {session ? (
                     <UserAvatar
                       user={{
-                        name: "Sample Name Too",
-                        email: "sample@email.only",
-                        avatar: "",
+                        name: session.user.name,
+                        email: session.user.email,
+                        avatar: session.user.image,
                       }}
                     />
                   ) : (
