@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { signInSchema, signUpSchema } from "@/lib/schema/auth";
+import { TSocialProviders } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -53,5 +54,19 @@ export async function signUpWithCredentials(
     revalidatePath("/", "layout");
   } catch {
     return "An unknown error has occurred";
+  }
+}
+
+export async function signInWithSocialProvider(provider: TSocialProviders) {
+  try {
+    const response = await auth.api.signInSocial({
+      body: { provider: provider },
+    });
+
+    console.log("ERROR", response);
+
+    revalidatePath("/", "layout");
+  } catch (error) {
+    console.log("ERROR", error);
   }
 }

@@ -15,6 +15,8 @@ import { useState } from "react";
 import { SignUpForm } from "./_signup";
 import { cn } from "@/lib/utils";
 import { ForgotPasswordForm } from "./_forgot-password";
+import { socialProviders } from "@/lib/data/social-providers";
+import { signInWithSocialProvider } from "./_actions";
 
 type FormType = "login" | "signup" | "reset";
 
@@ -99,42 +101,26 @@ export default function Page() {
             </span>
           </div>
 
-          <div className="flex items-center justify-center gap-3">
-            <Button size="sm" variant="outline">
-              <Image
-                src="/github.svg"
-                className="dark:invert"
-                width={17}
-                height={17}
-                quality={50}
-                alt="Login with GitHub"
-              />
-              <span>Github</span>
-            </Button>
-
-            <Button size="sm" variant="outline">
-              <Image
-                src="/google.svg"
-                className="dark:invert"
-                width={16}
-                height={16}
-                quality={50}
-                alt="Login with Google"
-              />
-              <span>Google</span>
-            </Button>
-
-            <Button size="sm" variant="outline">
-              <Image
-                src="/meta.svg"
-                className="dark:invert"
-                width={18}
-                height={18}
-                quality={50}
-                alt="Login with Meta"
-              />
-              <span>Meta</span>
-            </Button>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            {socialProviders
+              .entries()
+              .toArray()
+              .filter((e) => e[1].enabled)
+              .map(([key, data]) => (
+                <form key={key} action={() => signInWithSocialProvider(key)}>
+                  <Button size="sm" variant="outline" type="submit">
+                    <Image
+                      src={data.icon}
+                      className="dark:invert"
+                      width={17}
+                      height={17}
+                      quality={50}
+                      alt={`sign in with ${key}`}
+                    />
+                    <span>{data.label}</span>
+                  </Button>
+                </form>
+              ))}
           </div>
 
           <div className="text-center text-[0.84rem] flex items-center justify-center gap-2 mt-auto">
