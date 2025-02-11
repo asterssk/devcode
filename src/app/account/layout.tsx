@@ -25,6 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Layout({ children }: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user!;
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem] items-start">
@@ -34,8 +35,8 @@ export default async function Layout({ children }: Props) {
             <div className="flex gap-4">
               <Avatar>
                 <AvatarImage
-                  src={session?.user.image ?? ""}
-                  alt={session?.user.username}
+                  src={user.image ?? ""}
+                  alt={user.username ?? user.name}
                 />
                 <AvatarFallback>
                   <UserIcon />
@@ -43,14 +44,10 @@ export default async function Layout({ children }: Props) {
               </Avatar>
 
               <div className="flex flex-col">
-                <h1 className="flex-1 text-md">
-                  {session?.user.name ?? "Account"}
-                </h1>
-                {session?.user.username ? (
-                  <h5 className="text-xs text-muted-foreground">
-                    @{session?.user.username}
-                  </h5>
-                ) : null}
+                <h1 className="flex-1 text-md">{user.name}</h1>
+                <h5 className="text-xs text-muted-foreground">
+                  @{user.username}
+                </h5>
               </div>
             </div>
           }

@@ -6,12 +6,25 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg" }),
-  user: { additionalFields: { username: { type: "string" } } },
   emailAndPassword: { enabled: true },
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url, token }) => {},
+  },
+  user: {
+    additionalFields: {
+      username: { type: "string", required: false },
+      bio: { type: "string", required: false },
+    },
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailVerification: async (session, request) => {},
+    },
+    deleteUser: {
+      enabled: true,
+      sendDeleteAccountVerification: async (session, request) => {},
+    },
   },
   socialProviders: {
     github: {
