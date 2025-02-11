@@ -103,7 +103,7 @@ function TableView({
         "px-0 md:px-6"
       )}
     >
-      <TableHeader className="z-10 bg-background/90 backdrop-blur-sm text-xs">
+      <TableHeader className="z-10 bg-background/90 backdrop-blur-xs text-xs">
         <TableRow className="hover:bg-transparent">
           <TableHead>NAME</TableHead>
           <TableHead>AUTHOR</TableHead>

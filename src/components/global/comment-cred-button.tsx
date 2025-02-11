@@ -37,7 +37,7 @@ export function CommentCredButton({
           className={cn(
             "border-0 rounded-none h-full text-foreground",
             state === "upvoted"
-              ? "text-teal-500 hover:text-teal-400 dark:text-teal-400 hover:dark:text-teal-300"
+              ? "text-teal-500 hover:text-teal-400 dark:text-teal-400 dark:hover:text-teal-300"
               : ""
           )}
           type="submit"
@@ -52,7 +52,7 @@ export function CommentCredButton({
       <span
         className={cn(
           "w-full text-nowrap line-clamp-1 text-ellipsis",
-          "bg-background flex border-input items-center justify-center px-3 text-xs z-[5]",
+          "bg-background flex border-input items-center justify-center px-3 text-xs z-5",
           state === "upvoted"
             ? "text-teal-500 dark:text-teal-400 font-bold"
             : state === "downvoted"

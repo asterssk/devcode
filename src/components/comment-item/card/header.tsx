@@ -78,7 +78,7 @@ export function CommentCardHeader() {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg space-y-1"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg space-y-1"
             align="end"
           >
             {isOwner ? (

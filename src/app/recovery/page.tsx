@@ -5,7 +5,7 @@ export const metadata = { title: "Post Snippet" };
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-8 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
+    <div className="flex flex-col gap-8 container mx-auto max-w-(--breakpoint-lg) px-4 py-6 md:px-8">
       <AppHeader title="Create new snippet"></AppHeader>
 
       <div className="flex-1">

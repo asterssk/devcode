@@ -22,7 +22,7 @@ export function SnippetCredButton({
   return (
     <div
       className={cn(
-        "inline-flex -space-x-px rounded-md shadow-sm shadow-black/5 rtl:space-x-reverse",
+        "inline-flex -space-x-px rounded-md shadow-xs shadow-black/5 rtl:space-x-reverse",
         "border overflow-clip h-[1.9rem]",
         state === "upvoted"
           ? "border-teal-600 dark:border-teal-800"
@@ -37,7 +37,7 @@ export function SnippetCredButton({
           className={cn(
             "border-0 rounded-none h-full",
             state === "upvoted"
-              ? "bg-teal-500 text-white hover:bg-teal-600 dark:bg-teal-700 hover:dark:bg-teal-800"
+              ? "bg-teal-500 text-white hover:bg-teal-600 dark:bg-teal-700 dark:hover:bg-teal-800"
               : ""
           )}
           type="submit"
@@ -52,7 +52,7 @@ export function SnippetCredButton({
       <span
         className={cn(
           "w-full text-nowrap line-clamp-1 text-ellipsis",
-          "bg-background flex border-r border-l border-input items-center justify-center px-3 text-xs z-[5]",
+          "bg-background flex border-r border-l border-input items-center justify-center px-3 text-xs z-5",
           state === "upvoted"
             ? "border-teal-600 dark:border-teal-800"
             : state === "downvoted"
@@ -68,7 +68,7 @@ export function SnippetCredButton({
           className={cn(
             "border-0 rounded-none h-full",
             state === "downvoted"
-              ? "bg-red-500 text-white hover:bg-red-600 dark:bg-red-700 hover:dark:bg-red-800"
+              ? "bg-red-500 text-white hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800"
               : ""
           )}
           variant="secondary"

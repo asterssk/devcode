@@ -29,7 +29,7 @@ export default async function Layout({ children }: Props) {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem] items-start">
-      <div className="flex flex-col gap-4 container mx-auto max-w-screen-lg px-4 py-6 md:px-8">
+      <div className="flex flex-col gap-4 container mx-auto max-w-(--breakpoint-lg) px-4 py-6 md:px-8">
         <AppHeader
           title={
             <div className="flex gap-4">

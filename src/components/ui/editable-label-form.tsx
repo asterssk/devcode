@@ -51,7 +51,7 @@ export function EditableLabelForm({
             placeholder={placeholder ?? "---"}
             defaultValue={value ?? ""}
             readOnly={!isEditing}
-            className="h-auto border-none shadow-none resize-none focus-visible:outline-none focus-visible:ring-0 rounded-none"
+            className="h-auto border-none shadow-none resize-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
           />
         ) : (
           <h4

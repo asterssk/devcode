@@ -146,7 +146,7 @@ const items = [
 
 export default function Page() {
   return (
-    <div className="flex flex-col flex-1 gap-4 max-w-screen-xl px-6 py-4 md:px-8 h-full">
+    <div className="flex flex-col flex-1 gap-4 max-w-(--breakpoint-xl) px-6 py-4 md:px-8 h-full">
       <AppHeader title="My Snippets">
         <div className="flex gap-2 items-center">
           <Link href="/form/snippet" passHref>
@@ -161,7 +161,7 @@ export default function Page() {
       <div className="flex-1 relative overflow-hidden">
         <div className="absolute inset-0 overflow-auto [&>div]:max-h-full border rounded-md">
           <Table className="border-separate border-spacing-0 [&_td]:border-border [&_tfoot_td]:border-t [&_th]:border-b [&_th]:border-border [&_tr_td]:border-b [&_tr]:border-none">
-            <TableHeader className="sticky top-0 z-10 bg-background/90 backdrop-blur-sm text-xs">
+            <TableHeader className="sticky top-0 z-10 bg-background/90 backdrop-blur-xs text-xs">
               <TableRow className="hover:bg-transparent">
                 <TableHead>TITLE</TableHead>
                 <TableHead>STATUS</TableHead>

@@ -70,7 +70,7 @@ export function CommentField({
           ref={inputRef}
           placeholder={placeholder}
           readOnly
-          className="h-[2.25rem] border-none shadow-none resize-none focus-visible:outline-none focus-visible:ring-0 rounded-none"
+          className="h-[2.25rem] border-none shadow-none resize-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
         />
 
         <Button size="icon-xs" className="flex-none mr-0.5" type="button">
@@ -93,7 +93,7 @@ export function CommentField({
         placeholder={placeholder}
         autoFocus
         rows={1}
-        className="border-none shadow-none resize-none focus-visible:outline-none focus-visible:ring-0 rounded-none"
+        className="border-none shadow-none resize-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
         defaultValue={value}
       />
 

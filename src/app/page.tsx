@@ -49,7 +49,7 @@ export default async function Page({}: Props) {
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_19rem] items-start">
       <div
         className={cn(
-          "container mx-auto px-0 md:px-8 py-6 max-w-screen-lg",
+          "container mx-auto px-0 md:px-8 py-6 max-w-(--breakpoint-lg)",
           "flex flex-col gap-4"
         )}
       >

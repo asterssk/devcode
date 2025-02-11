@@ -72,7 +72,7 @@ export function UserAvatar({ user }: Props) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg space-y-1"
+        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg space-y-1"
         // side={isMobile ? "bottom" : "right"}
         align="end"
         sideOffset={5}

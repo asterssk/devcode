@@ -19,7 +19,12 @@ export function AppHeader({ title, className, children }: Props) {
         className
       )}
     >
-      <Button size="icon" variant="secondary" onClick={() => router.back()}>
+      <Button
+        size="icon"
+        variant="secondary"
+        onClick={() => router.back()}
+        className="cursor-pointer"
+      >
         <ArrowLeftIcon />
       </Button>
 

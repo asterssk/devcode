@@ -24,7 +24,7 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_19rem] items-start">
-      <div className="h-full flex flex-col gap-4 container mx-auto max-w-screen-lg pt-6 ">
+      <div className="h-full flex flex-col gap-4 container mx-auto max-w-(--breakpoint-lg) pt-6 ">
         <AppHeader title={slug.at(-1)} className="sm:px-4 md:px-8">
           <SnippetOptionsMenu className="flex-none self-start" />
         </AppHeader>
