@@ -9,9 +9,6 @@ import { ColorPicker } from "@/components/ui/color-picker";
 import { Loader2 } from "lucide-react";
 import { saveCollectionSnippet } from "./_actions";
 import { useRouter } from "next/navigation";
-import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -19,133 +16,134 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useForm } from "react-hook-form";
+import { useQueryState } from "nuqs";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { toast } from "sonner";
 
 type Props = { parent_id?: string };
 
 export function CollectionForm({}: Props) {
   const router = useRouter();
+  const [, setFormDirty] = useQueryState("dirty", { history: "replace" });
 
-  const form = useForm<Partial<z.infer<typeof collectionSchema>>>({
-    defaultValues: { visibility: "public" },
-    validators: { onBlur: collectionSchema },
-    onSubmit: async ({ value }) => {
-      const errors = await saveCollectionSnippet(value);
-
-      if (!errors) {
-        toast.success(`Collection ${value.name} created`, {
-          position: "top-right",
-        });
-        router.back();
-      } else {
-        errors.forEach((error) => {
-          toast.error(error, { position: "top-right" });
-        });
-      }
-    },
-    // transform: useTransform((base) => mergeForm(base, state ?? {}), [state]),
+  const form = useForm<z.infer<typeof collectionSchema>>({
+    defaultValues: { name: "", color: "", visibility: "public" },
+    resolver: zodResolver(collectionSchema),
   });
 
+  const handleSubmitForm = async (values: z.infer<typeof collectionSchema>) => {
+    const errors = await saveCollectionSnippet(values);
+
+    if (errors) {
+      errors.forEach((error) => toast.error(error));
+    } else {
+      toast.success(`Collection ${values.name} created`);
+      router.back();
+    }
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        form.handleSubmit();
-      }}
-      className="flex flex-col gap-6"
-    >
-      <div className="flex flex-col gap-6 px-4 py-4 flex-1">
-        <form.Field name="name">
-          {(field) => (
-            <div className="grid gap-2">
-              <Label htmlFor="_name">Name</Label>
-              <Input
-                id="_name"
-                name={field.name}
-                defaultValue={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Enter collection name"
-              />
+    <Form {...form}>
+      <form
+        className="flex flex-col gap-6"
+        onSubmit={form.handleSubmit(handleSubmitForm)}
+        onChange={() => setFormDirty("true")}
+        onReset={() => setFormDirty(null)}
+      >
+        <div className="flex flex-col gap-6 px-4 py-4 flex-1">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter collection name"
+                    {...field}
+                    value={field.value}
+                  />
+                </FormControl>
 
-              {field.state.meta.errors.map((error) => (
-                <p key={error as string} className="error">
-                  {error}
-                </p>
-              ))}
-            </div>
-          )}
-        </form.Field>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <form.Field name="visibility">
-            {(field) => (
-              <div className="grid gap-2">
-                <Label htmlFor="_visibility">Visibility</Label>
-                <Select
-                  name={field.name}
-                  defaultValue={field.state.value}
-                  onValueChange={(e: "public" | "private") => {
-                    field.handleChange(e);
-                  }}
-                >
-                  <SelectTrigger id="_visibility">
-                    <SelectValue placeholder="Select visibility" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="public">Public</SelectItem>
-                    <SelectItem value="private">Private</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                {field.state.meta.errors.map((error) => (
-                  <p key={error as string} className="error">
-                    {error}
-                  </p>
-                ))}
-              </div>
+                <FormMessage />
+              </FormItem>
             )}
-          </form.Field>
+          />
 
-          <form.Field name="color">
-            {(field) => (
-              <div className="grid gap-2">
-                <Label htmlFor="_color">Color</Label>
-                <ColorPicker
-                  value={field.state.value}
-                  onChange={field.handleChange}
-                />
+          <div className="grid md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="visibility"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Visiblity</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select visibility" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="public">Public</SelectItem>
+                      <SelectItem value="private">Private</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                {field.state.meta.errors.map((error) => (
-                  <p key={error as string} className="error">
-                    {error}
-                  </p>
-                ))}
-              </div>
-            )}
-          </form.Field>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="color"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Color</FormLabel>
+                  <FormControl>
+                    <ColorPicker
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
-      </div>
 
-      <DialogFooter className="border-t border-border px-4 py-3 sticky bottom-0 bg-background">
-        <Button
-          type="reset"
-          variant="secondary"
-          className="mr-4"
-          onClick={() => form.reset()}
-        >
-          Reset
-        </Button>
+        <DialogFooter className="px-4 py-3 sticky bottom-0 bg-background">
+          <Button
+            type="reset"
+            variant="secondary"
+            className="mr-4"
+            onClick={() => form.reset()}
+          >
+            Reset
+          </Button>
 
-        <form.Subscribe selector={(state) => [state.isSubmitting]}>
-          {([isSubmitting]) => (
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Loader2 className="animate-spin" /> : null}
-              Save changes
-            </Button>
-          )}
-        </form.Subscribe>
-      </DialogFooter>
-    </form>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : null}
+            Create Collection
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
   );
 }

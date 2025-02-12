@@ -3,20 +3,27 @@
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { Input } from "./input";
-import { CheckCircle2Icon, EditIcon, XIcon } from "lucide-react";
+import { CheckIcon, EditIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Label } from "./label";
+import { Textarea } from "./textarea";
 
 type Props = React.DetailedHTMLProps<
   React.FormHTMLAttributes<HTMLFormElement>,
   HTMLFormElement
-> & { label?: string; placeholder?: string; value?: string | null };
+> & {
+  label?: string;
+  placeholder?: string;
+  value?: string | null;
+  type?: "text" | "richtext";
+};
 
 export function EditableLabelForm({
   className,
   placeholder,
   value,
   label,
+  type = "text",
   ...form
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -25,7 +32,7 @@ export function EditableLabelForm({
     <form
       {...form}
       className={cn(
-        "grid gap-0.5 border-b transition-colors border-b-input",
+        "grid border-b gap-1 transition-colors border-b-input pb-1",
         isEditing ? "border-b-primary" : "hover:border-b-primary",
         className
       )}
@@ -39,25 +46,45 @@ export function EditableLabelForm({
       </Label>
 
       <div
-        className="grid grid-cols-[1fr_min-content] items-center h-9"
+        className={cn(
+          "grid grid-cols-[1fr_min-content] gap-2 items-end text-ellipsis overflow-clip",
+          type === "richtext" ? (value ? "h-auto" : "h-16") : "h-8"
+        )}
         onClick={() => setIsEditing(true)}
       >
         {isEditing ? (
-          <Input
-            id="__value"
-            name="value"
-            autoFocus
-            onBlur={() => setIsEditing(false)}
-            placeholder={placeholder ?? "---"}
-            defaultValue={value ?? ""}
-            readOnly={!isEditing}
-            className="h-auto border-none shadow-none resize-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
-          />
+          type === "richtext" ? (
+            <Textarea
+              key="__richtext"
+              id="__value"
+              name="value"
+              autoFocus
+              rows={5}
+              onBlur={() => setIsEditing(false)}
+              placeholder={placeholder ?? "---"}
+              defaultValue={value ?? ""}
+              readOnly={!isEditing}
+              className="h-full border-none shadow-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
+            ></Textarea>
+          ) : (
+            <Input
+              key="__text"
+              id="__value"
+              name="value"
+              autoFocus
+              onBlur={() => setIsEditing(false)}
+              placeholder={placeholder ?? "---"}
+              defaultValue={value ?? ""}
+              readOnly={!isEditing}
+              className="h-full border-none shadow-none resize-none focus-visible:outline-hidden focus-visible:ring-0 rounded-none"
+            />
+          )
         ) : (
           <h4
-            className={
+            className={cn(
+              "overflow-clip",
               !value && placeholder ? "text-muted-foreground text-xs" : ""
-            }
+            )}
           >
             {value ?? placeholder ?? "---"}
           </h4>
@@ -67,12 +94,11 @@ export function EditableLabelForm({
           <div className="flex gap-2">
             <Button
               variant="secondary"
-              size="sm"
+              size="icon"
               type="submit"
               disabled={!isEditing}
             >
-              <CheckCircle2Icon />
-              Confirm
+              <CheckIcon />
             </Button>
             <Button
               variant="secondary"

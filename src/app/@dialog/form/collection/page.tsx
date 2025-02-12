@@ -9,15 +9,25 @@ import {
 } from "@/components/ui/dialog";
 import { CollectionForm } from "./_form";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 export default function Page() {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const [isFormDirty] = useQueryState("dirty");
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const isNew = !id;
 
   return (
     <Dialog open onOpenChange={(isOpen) => (isOpen ? {} : router.back())}>
-      <DialogContent>
+      <DialogContent
+        onEscapeKeyDown={(e) => {
+          if (isFormDirty) e.preventDefault();
+        }}
+        onInteractOutside={(e) => {
+          if (isFormDirty) e.preventDefault();
+        }}
+      >
         <DialogHeader className="space-y-0 text-left">
           <DialogTitle className="border-b border-border px-4 py-3 text-base capitalize">
             {isNew ? "Create New" : "Update"} Collection

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/sonner";
 import {
   SidebarInset,
@@ -55,62 +56,64 @@ export default async function RootLayout({ children, dialog }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          <SidebarProvider>
-            <AppSidebar languages={sampleLanguages} />
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar languages={sampleLanguages} />
 
-            <SidebarInset>
-              <header className="z-10 flex sticky top-0 bg-background h-14 shrink-0 items-center gap-2 border-b px-4 justify-between">
-                <div className="flex gap-1 sm:gap-2 md:gap-3 items-center">
-                  <SidebarTrigger className="inline-flex md:hidden" />
-                  <SearchSnippetButton />
-                </div>
+              <SidebarInset>
+                <header className="z-10 flex sticky top-0 bg-background h-14 shrink-0 items-center gap-2 border-b px-4 justify-between">
+                  <div className="flex gap-1 sm:gap-2 md:gap-3 items-center">
+                    <SidebarTrigger className="inline-flex md:hidden" />
+                    <SearchSnippetButton />
+                  </div>
 
-                <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
-                  <Tooltip delayDuration={500}>
-                    <TooltipTrigger asChild>
-                      <Button size="icon" asChild variant="outline">
-                        <Link href="/form/snippet">
-                          <PlusIcon />
-                        </Link>
-                      </Button>
-                    </TooltipTrigger>
+                  <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+                    <Tooltip delayDuration={500}>
+                      <TooltipTrigger asChild>
+                        <Button size="icon" asChild variant="outline">
+                          <Link href="/form/snippet">
+                            <PlusIcon />
+                          </Link>
+                        </Button>
+                      </TooltipTrigger>
 
-                    <TooltipContent>
-                      <p>Post a snippet</p>
-                    </TooltipContent>
-                  </Tooltip>
+                      <TooltipContent>
+                        <p>Post a snippet</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <ThemeToggler />
+                    <ThemeToggler />
 
-                  {session ? (
-                    <UserAvatar
-                      user={{
-                        name: session.user.name,
-                        email: session.user.email,
-                        avatar: session.user.image,
-                      }}
-                    />
-                  ) : (
-                    <Link href="/form/auth" passHref>
-                      <RainbowButton>Signin</RainbowButton>
-                    </Link>
-                  )}
-                </div>
-              </header>
+                    {session ? (
+                      <UserAvatar
+                        user={{
+                          name: session.user.name,
+                          email: session.user.email,
+                          avatar: session.user.image,
+                        }}
+                      />
+                    ) : (
+                      <Link href="/form/auth" passHref>
+                        <RainbowButton>Signin</RainbowButton>
+                      </Link>
+                    )}
+                  </div>
+                </header>
 
-              <main className="flex-1 flex flex-col">{children}</main>
+                <main className="flex-1 flex flex-col">{children}</main>
 
-              {dialog}
-            </SidebarInset>
-          </SidebarProvider>
+                {dialog}
+              </SidebarInset>
+            </SidebarProvider>
 
-          <Toaster />
-        </ThemeProvider>
+            <Toaster />
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

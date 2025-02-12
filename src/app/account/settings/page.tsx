@@ -3,7 +3,6 @@ import {
   updateBio,
   updateEmail,
   updateName,
-  updatePassword,
   updateUsername,
 } from "../_actions";
 import { EditableLabelForm } from "@/components/ui/editable-label-form";
@@ -23,7 +22,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         <h2>Profile</h2>
 
         <div className="flex flex-col gap-4">
@@ -35,6 +34,7 @@ export default async function Page() {
 
           <EditableLabelForm
             action={updateBio}
+            type="richtext"
             label="Bio"
             placeholder="Update your bio..."
             value={session?.user.bio}
@@ -45,15 +45,16 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-5">
         <h2>Preferences</h2>
 
-        <div>Push notifications</div>
-        <div>Editor theme</div>
-        <div>Languages</div>
+        <div className="flex flex-col gap-4">
+          <div>Editor theme</div>
+          <div>Languages</div>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         <h2>Logins</h2>
 
         <div className="flex flex-col gap-4">
