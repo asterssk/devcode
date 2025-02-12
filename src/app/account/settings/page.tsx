@@ -113,16 +113,11 @@ export default async function Page() {
       <div className="flex flex-col gap-2">
         <h2>Danger</h2>
 
-        <DeleteAccount />
-
-        <div>
-          <h3>Delete account</h3>
-          <p className="sr-only">
-            Once you delete your account, your profile and username are
-            permanently removed from Reddit and your posts, comments, and
-            messages are disassociated (not deleted) from your account unless
-            you delete them beforehand.
-          </p>
+        <div className="flex justify-between border hover:border-destructive transition-colors px-4 py-2 items-center rounded-md">
+          <h3 className="text-sm">
+            Delete account: <i>This action is irreversible</i>
+          </h3>
+          <DeleteAccount />
         </div>
       </div>
     </div>

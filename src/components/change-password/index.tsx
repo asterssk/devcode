@@ -23,19 +23,48 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export function ChangePassword() {
+  const [_isOpen, setIsOpen] = useState(false);
+
   const form = useForm<z.infer<typeof updatePasswordSchema>>({
     defaultValues: {
-      currentPassword: "",
+      current_password: "",
       new_password: "",
       confirm_new_password: "",
     },
     resolver: zodResolver(updatePasswordSchema),
   });
 
+  const handleChangePassword = async ({
+    current_password,
+    new_password,
+  }: z.infer<typeof updatePasswordSchema>) => {
+    const response = await authClient.changePassword({
+      currentPassword: current_password,
+      newPassword: new_password,
+      revokeOtherSessions: true,
+    });
+    if (response.error) {
+      toast.error(response.error.message);
+    } else {
+      toast.success("Password changed successfully.");
+      form.reset();
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <Dialog onOpenChange={(isOpen) => isOpen && form.reset()}>
+    <Dialog
+      open={_isOpen}
+      onOpenChange={(isOpen) => {
+        setIsOpen(isOpen);
+        if (isOpen) form.reset();
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           Update Password
@@ -46,21 +75,17 @@ export function ChangePassword() {
           <DialogTitle className="text-left">Update Password</DialogTitle>
           <DialogDescription>
             For a more secure account, make sure you have a strong password.
-            {/* <ul className="list-disc list-inside">
-              <li>At least 8 characters</li>
-              <li>At least 1 number</li>
-              <li>At least 1 lowercase letter</li>
-              <li>At least 1 uppercase letter</li>
-              <li>At least 1 special character</li>
-            </ul> */}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form className="space-y-5" onSubmit={form.handleSubmit(() => {})}>
+          <form
+            className="space-y-5"
+            onSubmit={form.handleSubmit(handleChangePassword)}
+          >
             <FormField
               control={form.control}
-              name="currentPassword"
+              name="current_password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Current Password</FormLabel>

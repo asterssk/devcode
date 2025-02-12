@@ -21,7 +21,7 @@ export const signUpSchema = z.object({
 
 export const updatePasswordSchema = z
   .object({
-    currentPassword: z
+    current_password: z
       .string({ message: "Please enter your current password" })
       .min(1, "Please enter your current password"),
     new_password: z
