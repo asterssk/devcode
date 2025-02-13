@@ -1,20 +1,33 @@
-import { AppHeader } from "@/components/app-header";
 import { ReactNode } from "react";
 import { MyCollectionsToolbar } from "./_toolbar";
 import { MyCollectionsBreadcrumb } from "./_breadcrumb";
+import { AppHeader } from "@/components/global/app-header";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 type Props = { children: ReactNode };
-export default function Layout({ children }: Props) {
+
+export default async function Layout({ children }: Props) {
+  const session = await auth.api.getSession({ headers: await headers() });
+
   return (
-    <div className="flex flex-col flex-1 gap-4">
+    <div className="flex flex-col flex-1">
+      {session ? null : (
+        <Alert variant="warn">
+          <AlertDescription>
+            You can create a collection even without an account. We'll
+            automatically set you up with an anonymous one.
+          </AlertDescription>
+        </Alert>
+      )}
+
       <AppHeader
         title={<MyCollectionsBreadcrumb className="hidden md:inline-flex" />}
-        className="pt-4 px-6 container mx-auto "
+        className="py-5 container mx-auto px-4"
       >
-        <MyCollectionsToolbar />
+        <MyCollectionsToolbar className="ml-auto" />
       </AppHeader>
-
-      <MyCollectionsBreadcrumb className="px-4 md:px-0 inline-flex md:hidden" />
 
       <div className="flex-1 relative">
         <div className="absolute inset-0 overflow-hidden">{children}</div>

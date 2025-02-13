@@ -69,3 +69,23 @@ export function parseSchema<T extends z.ZodTypeAny>(
     .flat()
     .filter((e) => e !== undefined);
 }
+
+export function generateSlug(...origin: string[]) {
+  const maxLength = 50;
+
+  const slug = origin
+    .map((str) =>
+      str
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+    )
+    .filter(Boolean)
+    .join("-");
+
+  return slug.length > maxLength
+    ? slug.slice(0, slug.lastIndexOf("-", maxLength)) ||
+        slug.slice(0, maxLength)
+    : slug;
+}

@@ -82,6 +82,7 @@ export function SignInForm({ className, onRecoveryClick }: Props) {
                 <Button
                   size="fit"
                   className="ml-auto text-xs"
+                  tabIndex={-1}
                   variant="link"
                   type="button"
                   onClick={onRecoveryClick}

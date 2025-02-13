@@ -2,17 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { myCollectionsViewAtom } from "@/lib/atoms/collections";
+import { cn } from "@/lib/utils";
 import { useAtom } from "jotai";
 import { Grid2x2Icon, PlusIcon, SortAscIcon, Table2Icon } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
-export function MyCollectionsToolbar() {
+type Props = { className?: string };
+
+export function MyCollectionsToolbar({ className }: Props) {
   const segment = useSelectedLayoutSegment();
   const [_view, setView] = useAtom(myCollectionsViewAtom);
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className={cn("flex gap-2 items-center", className)}>
       <Link href={`/form/collection?parent=${segment}`}>
         <Button size="sm" className="hidden md:inline-flex">
           <PlusIcon />

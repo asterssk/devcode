@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Layout({ children }: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
-  const user = session?.user!;
+  const user = session!.user;
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_20rem] items-start">
@@ -46,7 +46,7 @@ export default async function Layout({ children }: Props) {
               <div className="flex flex-col">
                 <h1 className="flex-1 text-md">{user.name}</h1>
                 <h5 className="text-xs text-muted-foreground">
-                  @{user.username}
+                  @{user.username ?? "anon"}
                 </h5>
               </div>
             </div>

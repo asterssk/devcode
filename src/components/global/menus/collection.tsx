@@ -9,9 +9,9 @@ import {
 } from "../../ui/dropdown-menu";
 import Link from "next/link";
 
-type Props = { className?: string };
+type Props = { id: string; className?: string };
 
-export function CollectionMenuButton({ className }: Props) {
+export function CollectionMenuButton({ id, className }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,7 +24,7 @@ export function CollectionMenuButton({ className }: Props) {
         align="end"
       >
         <Link
-          href={`/form/collection?id=${"sample_id"}`}
+          href={`/form/collection?id=${id}`}
           passHref
           onClick={(e) => e.stopPropagation()}
         >

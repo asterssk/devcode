@@ -27,17 +27,19 @@ export default async function Page() {
 
         <div className="flex flex-col gap-4">
           <EditableLabelForm
+            disabled={session?.user.isAnonymous}
             action={updateName}
             label="Display Name"
             value={session?.user.name}
           />
 
           <EditableLabelForm
+            disabled={session?.user.isAnonymous}
             action={updateBio}
             type="richtext"
             label="Bio"
             placeholder="Update your bio..."
-            value={session?.user.bio}
+            value={session?.user.name}
           />
 
           <div>Avatar</div>
@@ -59,12 +61,14 @@ export default async function Page() {
 
         <div className="flex flex-col gap-4">
           <EditableLabelForm
+            disabled={session?.user.isAnonymous}
             action={updateEmail}
             label="Email Address"
             value={session?.user.email}
           />
 
           <EditableLabelForm
+            disabled={session?.user.isAnonymous}
             action={updateUsername}
             label="Username"
             value={session?.user.username}
@@ -111,16 +115,18 @@ export default async function Page() {
         <div>Blocked accounts</div>
       </div> */}
 
-      <div className="flex flex-col gap-2">
-        <h2>Danger</h2>
+      {session?.user.isAnonymous ? null : (
+        <div className="flex flex-col gap-2">
+          <h2>Danger</h2>
 
-        <div className="flex justify-between border hover:border-destructive transition-colors px-4 py-2 items-center rounded-md">
-          <h3 className="text-sm">
-            Delete account: <i>This action is irreversible</i>
-          </h3>
-          <DeleteAccount />
+          <div className="flex justify-between border hover:border-destructive transition-colors px-4 py-2 items-center rounded-md">
+            <h3 className="text-sm">
+              Delete account: <i>This action is irreversible</i>
+            </h3>
+            <DeleteAccount />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -29,20 +29,22 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 
-type Props = { parent_id?: string };
+type Props = {
+  parent_id?: string;
+  defaulValue?: z.infer<typeof collectionSchema>;
+};
 
-export function CollectionForm({}: Props) {
+export function CollectionForm({ defaulValue }: Props) {
   const router = useRouter();
   const [, setFormDirty] = useQueryState("dirty", { history: "replace" });
 
   const form = useForm<z.infer<typeof collectionSchema>>({
-    defaultValues: { name: "", color: "", visibility: "public" },
+    defaultValues: defaulValue ?? { name: "", color: "", visibility: "public" },
     resolver: zodResolver(collectionSchema),
   });
 
   const handleSubmitForm = async (values: z.infer<typeof collectionSchema>) => {
     const errors = await saveCollectionSnippet(values);
-
     if (errors) {
       errors.forEach((error) => toast.error(error));
     } else {

@@ -2,46 +2,34 @@ import SnippetPost from "@/components/snippet-post";
 import { getDummySnippetPosts } from "@/components/snippet-post/_action";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { auth } from "@/lib/auth";
+import { TVisibility } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { collection } from "db/schema/collection";
+import { eq } from "drizzle-orm";
 import { PlusIcon } from "lucide-react";
+import { headers } from "next/headers";
 import Link from "next/link";
 import React from "react";
 
-const collections = [
-  { id: "1", title: "Title", count: 223, visibility: "public" },
-  { id: "2", title: "Title", count: 223, visibility: "public" },
-  { id: "3", title: "Title", count: 223, visibility: "private" },
-  { id: "4", title: "Title", count: 223, visibility: "private" },
-  { id: "5", title: "Title", count: 223, visibility: "private" },
-  { id: "6", title: "Title", count: 223, visibility: "private" },
-  { id: "7", title: "Title", count: 223, visibility: "private" },
-  { id: "8", title: "Title", count: 223, visibility: "private" },
-  { id: "9", title: "Title", count: 223, visibility: "private" },
-  { id: "10", title: "Title", count: 223, visibility: "private" },
-  { id: "11", title: "Title", count: 223, visibility: "private" },
-  { id: "12", title: "Title", count: 223, visibility: "private" },
-  { id: "13", title: "Title", count: 223, visibility: "private" },
-  { id: "14", title: "Title", count: 223, visibility: "private" },
-  { id: "15", title: "Title", count: 223, visibility: "private" },
-  { id: "16", title: "Title", count: 223, visibility: "private" },
-  { id: "17", title: "Title", count: 223, visibility: "private" },
-  { id: "18", title: "Title", count: 223, visibility: "private" },
-  { id: "19", title: "Title", count: 223, visibility: "private" },
-  { id: "20", title: "Title", count: 223, visibility: "public" },
-  { id: "21", title: "Title", count: 223, visibility: "private" },
-  { id: "22", title: "Title", count: 223, visibility: "private" },
-  { id: "23", title: "Title", count: 223, visibility: "private" },
-  { id: "24", title: "END-0", count: 223, visibility: "private" },
-  { id: "25", title: "END", count: 223, visibility: "private" },
-];
-
 type Props = { searchParams: Promise<{ lang?: string; framework?: string }> };
 
+async function getCollections(id?: string) {
+  if (!id) return [];
+
+  return await db.query.collection.findMany({
+    with: { user: true },
+    where: eq(collection.createdBy, id),
+  });
+}
+
 export default async function Page({}: Props) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  const result = await getCollections(session?.user.id);
   const posts = await getDummySnippetPosts(10);
 
   const groupedCollections = Object.groupBy(
-    collections,
+    result,
     ({ visibility }) => visibility
   );
 
@@ -77,7 +65,7 @@ export default async function Page({}: Props) {
         <ScrollArea className="pr-4">
           <div className="flex flex-col pb-3 gap-4">
             {Object.keys(groupedCollections).map((visibility) => {
-              const items = groupedCollections[visibility] ?? [];
+              const items = groupedCollections[visibility as TVisibility] ?? [];
 
               return (
                 <div key={visibility} className="flex flex-col">
@@ -88,21 +76,27 @@ export default async function Page({}: Props) {
                   {items.map((item) => (
                     <Link
                       key={item.id}
-                      href={`/collections/${item.id}`}
+                      href={`/collections/${item.user.username}/${item.slug}`}
                       className={cn(
                         "flex items-center gap-2 justify-between p-2 rounded",
                         "transition-colors hover:bg-secondary"
                       )}
                     >
                       <div className="flex flex-nowrap gap-1.5 items-center">
-                        <div className="bg-red-500 h-1.5 w-1.5 rounded-full" />
+                        <div
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{
+                            backgroundColor: item.color ? item.color : "gray",
+                          }}
+                        />
+
                         <span className="text-sm line-clamp-1">
-                          {item.title}
+                          {item.name}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="text-xs">{item.count}</span>
+                        <span className="text-xs">count</span>
                       </div>
                     </Link>
                   ))}

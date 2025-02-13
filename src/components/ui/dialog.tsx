@@ -5,6 +5,8 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 const positioning = {
   default: `left-[50%] top-[50%] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] sm:rounded-lg`,
@@ -49,10 +51,19 @@ export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
     VariantProps<typeof dialogVariants> {}
 
-const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
 const DialogPortal = DialogPrimitive.Portal;
 const DialogClose = DialogPrimitive.Close;
+
+function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
+  const router = useRouter();
+  return (
+    <DialogPrimitive.Root
+      onOpenChange={(isOpen) => (isOpen ? {} : router.back())}
+      {...props}
+    />
+  );
+}
 
 function DialogOverlay({
   className,
@@ -77,12 +88,20 @@ function DialogContent({
   children,
   ...props
 }: DialogContentProps) {
+  const [isFormDirty] = useQueryState("dirty");
+
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(dialogVariants({ variant, className }))}
         {...props}
+        onEscapeKeyDown={(e) => {
+          if (isFormDirty) e.preventDefault();
+        }}
+        onInteractOutside={(e) => {
+          if (isFormDirty) e.preventDefault();
+        }}
       >
         {children}
         <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">

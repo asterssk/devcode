@@ -31,6 +31,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useQueryState } from "nuqs";
+import { Textarea } from "@/components/ui/textarea";
 
 export function SnippetForm() {
   const router = useRouter();
@@ -96,6 +97,25 @@ export function SnippetForm() {
                       placeholder="Enter snippet title"
                       {...field}
                       value={field.value}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter description..."
+                      {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
 

@@ -47,7 +47,7 @@ export function ThemeToggler() {
     //   </Toggle>
     // </div>
     <Button
-      variant="outline"
+      variant="ghost"
       size="icon"
       className="flex-none"
       onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}

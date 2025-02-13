@@ -42,12 +42,14 @@ export async function signUpWithCredentials(
       return "Please fill-in your signup credentials correctly.";
     }
 
+    const username = values.email.split("@")[0];
+
     await auth.api.signUpEmail({
       body: {
         email: values.email,
-        username: values.email,
+        username: username,
         password: values.password,
-        name: values.email.split("@").at(0) ?? "",
+        name: username,
       },
     });
 

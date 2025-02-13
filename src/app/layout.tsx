@@ -22,6 +22,7 @@ import { RainbowButton } from "@/components/global/rainbow-button";
 import SearchSnippetButton from "@/components/global/search-snippet-button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { RootBanners } from "@/components/global/banners";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,10 +73,10 @@ export default async function RootLayout({ children, dialog }: Props) {
                     <SearchSnippetButton />
                   </div>
 
-                  <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+                  <div className="flex items-center gap-1 sm:gap-2">
                     <Tooltip delayDuration={500}>
                       <TooltipTrigger asChild>
-                        <Button size="icon" asChild variant="outline">
+                        <Button size="icon" asChild variant="ghost">
                           <Link href="/form/snippet">
                             <PlusIcon />
                           </Link>
@@ -83,7 +84,7 @@ export default async function RootLayout({ children, dialog }: Props) {
                       </TooltipTrigger>
 
                       <TooltipContent>
-                        <p>Post a snippet</p>
+                        <p>Create a code snippet</p>
                       </TooltipContent>
                     </Tooltip>
 
@@ -91,6 +92,7 @@ export default async function RootLayout({ children, dialog }: Props) {
 
                     {session ? (
                       <UserAvatar
+                        isAnonymous={session.user.isAnonymous ?? false}
                         user={{
                           name: session.user.name,
                           email: session.user.email,
@@ -105,7 +107,10 @@ export default async function RootLayout({ children, dialog }: Props) {
                   </div>
                 </header>
 
-                <main className="flex-1 flex flex-col">{children}</main>
+                <main className="flex-1 flex flex-col">
+                  <RootBanners anonymous={session?.user.isAnonymous ?? false} />
+                  {children}
+                </main>
 
                 {dialog}
               </SidebarInset>

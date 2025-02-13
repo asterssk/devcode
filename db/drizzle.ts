@@ -1,9 +1,14 @@
 import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
-import * as schema from "./schema";
 import postgres, { type Sql } from "postgres";
 
+import * as userSchema from "./schema/user";
+import * as authSchema from "./schema/auth";
+import * as collectionSchema from "./schema/collection";
+
+const schema = { ...userSchema, ...authSchema, ...collectionSchema };
+
 declare global {
-  var db: PostgresJsDatabase<typeof schema> | undefined;
+  var db: PostgresJsDatabase<typeof schema>;
   var queryClient: Sql<{}> | undefined;
 }
 
@@ -32,13 +37,3 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export { db, queryClient };
-// const globalPostgresClient = global as unknown as { client: postgres.Sql };
-
-// const queryClient =
-//   globalPostgresClient.client ||
-//   postgres(process.env.DATABASE_URL as string, {
-//     max: 5,
-//     idle_timeout: 20,
-//   });
-
-// export const db = drizzle(queryClient, { schema: schema });

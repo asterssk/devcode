@@ -13,10 +13,7 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url, token }) => {},
   },
   user: {
-    additionalFields: {
-      username: { type: "string", required: false },
-      bio: { type: "string", required: false },
-    },
+    additionalFields: { username: { type: "string", required: false } },
     changeEmail: {
       enabled: true,
       sendChangeEmailVerification: async (session, request) => {},

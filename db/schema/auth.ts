@@ -1,18 +1,7 @@
-import { text, timestamp, boolean, pgSchema } from "drizzle-orm/pg-core";
+import { text, timestamp, pgSchema } from "drizzle-orm/pg-core";
+import { user } from "./user";
 
 export const authSchema = pgSchema("auth");
-
-export const user = authSchema.table("user", {
-  id: text("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").notNull(),
-  image: text("image"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
-  username: text("username").unique(),
-  isAnonymous: boolean("is_anonymous"),
-});
 
 export const session = authSchema.table("session", {
   id: text("id").primaryKey(),

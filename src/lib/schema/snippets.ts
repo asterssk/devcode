@@ -5,6 +5,7 @@ export const snippetSchema = z.object({
   title: z
     .string({ message: "Please enter snippet title" })
     .min(1, "Please enter snippet title"),
+  description: z.string().nullish(),
   content: z
     .string({ message: "Snippet content cannot be empty" })
     .min(1, "Snippet content cannot be empty"),

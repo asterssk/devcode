@@ -12,6 +12,7 @@ type Props = React.DetailedHTMLProps<
   React.FormHTMLAttributes<HTMLFormElement>,
   HTMLFormElement
 > & {
+  disabled?: boolean | null;
   label?: string;
   placeholder?: string;
   value?: string | null;
@@ -24,19 +25,34 @@ export function EditableLabelForm({
   value,
   label,
   type = "text",
+  disabled,
   ...form
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
+
+  const setEditOn = () => {
+    if (disabled) return;
+    setIsEditing(true);
+  };
+
+  const setEditOff = () => {
+    if (disabled) return;
+    setIsEditing(true);
+  };
 
   return (
     <form
       {...form}
       className={cn(
         "grid border-b gap-1 transition-colors border-b-input pb-1",
-        isEditing ? "border-b-primary" : "hover:border-b-primary",
+        isEditing
+          ? "border-b-primary"
+          : disabled
+          ? ""
+          : "hover:border-b-primary",
         className
       )}
-      onSubmit={() => setIsEditing(false)}
+      onSubmit={setEditOff}
     >
       <Label
         htmlFor="__value"
@@ -50,7 +66,7 @@ export function EditableLabelForm({
           "grid grid-cols-[1fr_min-content] gap-2 items-end text-ellipsis overflow-clip",
           type === "richtext" ? (value ? "h-auto" : "h-16") : "h-8"
         )}
-        onClick={() => setIsEditing(true)}
+        onClick={setEditOn}
       >
         {isEditing ? (
           type === "richtext" ? (
@@ -96,7 +112,7 @@ export function EditableLabelForm({
               variant="secondary"
               size="icon"
               type="submit"
-              disabled={!isEditing}
+              disabled={!isEditing || (disabled ?? false)}
             >
               <CheckIcon />
             </Button>
@@ -108,12 +124,12 @@ export function EditableLabelForm({
                 e.stopPropagation();
                 setIsEditing(false);
               }}
-              disabled={!isEditing}
+              disabled={!isEditing || (disabled ?? false)}
             >
               <XIcon />
             </Button>
           </div>
-        ) : (
+        ) : disabled ? null : (
           <EditIcon className="size-3.5" />
         )}
       </div>
