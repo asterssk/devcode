@@ -1,5 +1,5 @@
-import { MyCollectionsContent } from "../_content";
 import { sampleItems } from "@/lib/data/sample";
+import { MyCollectionsContent } from "../_collections_content";
 
 type Props = { params: Promise<{ id: string }> };
 

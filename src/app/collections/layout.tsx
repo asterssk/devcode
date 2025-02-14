@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
-import { MyCollectionsToolbar } from "./_toolbar";
-import { MyCollectionsBreadcrumb } from "./_breadcrumb";
 import { AppHeader } from "@/components/global/app-header";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { CollectionContentWrapper } from "./_components/content_wrapper";
+import { MyCollectionsToolbar } from "./_components/toolbar";
+import { MyCollectionsBreadcrumb } from "./_components/breadcrumb";
 
 type Props = { children: ReactNode };
 
@@ -29,9 +30,11 @@ export default async function Layout({ children }: Props) {
         <MyCollectionsToolbar className="ml-auto" />
       </AppHeader>
 
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 overflow-hidden">{children}</div>
-      </div>
+      <CollectionContentWrapper>
+        <div className="flex-1 relative">
+          <div className="absolute inset-0 overflow-hidden">{children}</div>
+        </div>
+      </CollectionContentWrapper>
     </div>
   );
 }
