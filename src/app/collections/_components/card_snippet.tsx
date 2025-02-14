@@ -1,9 +1,7 @@
 "use client";
 
-import { CollectionMenuButton } from "@/components/global/menus/collection";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { LibraryBigIcon } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
 import { useDndContext, useDraggable } from "@dnd-kit/core";
 import { InferSelectModel } from "drizzle-orm";
@@ -41,7 +39,7 @@ export function SnippetCard({ snippet }: Props) {
       ref={setDragRef}
       {...attributes}
       {...listeners}
-      style={{ transform: CSS.Transform.toString(transform) }}
+      style={{ transform: CSS.Translate.toString(transform) }}
       onDoubleClick={() => alert(snippet.id)}
       className={cn("flex flex-col", "hover:bg-secondary transition-color")}
     >
