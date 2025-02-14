@@ -1,6 +1,7 @@
 import SnippetPost from "@/components/snippet-post";
 import { getDummySnippetPosts } from "@/components/snippet-post/_action";
 import { Button } from "@/components/ui/button";
+import { Empty } from "@/components/ui/empty";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { auth } from "@/lib/auth";
 import { TVisibility } from "@/lib/types";
@@ -25,11 +26,11 @@ async function getCollections(id?: string) {
 
 export default async function Page({}: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
-  const result = await getCollections(session?.user.id);
+  const collections = await getCollections(session?.user.id);
   const posts = await getDummySnippetPosts(10);
 
   const groupedCollections = Object.groupBy(
-    result,
+    collections,
     ({ visibility }) => visibility
   );
 
@@ -62,7 +63,18 @@ export default async function Page({}: Props) {
           </Link>
         </div>
 
-        <ScrollArea className="pr-4">
+        <ScrollArea className="pr-4 h-full">
+          {collections.length < 1 ? (
+            <Empty
+              label={
+                session?.user.isAnonymous
+                  ? "Create a collection without an account, and we'll make an anonymous one for you."
+                  : "Create a collection now to easily manage your snippets."
+              }
+              className="my-20 text-sm"
+            />
+          ) : null}
+
           <div className="flex flex-col pb-3 gap-4">
             {Object.keys(groupedCollections).map((visibility) => {
               const items = groupedCollections[visibility as TVisibility] ?? [];

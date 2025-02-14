@@ -75,7 +75,7 @@ CREATE TABLE "user" (
 	"image" text,
 	"created_at" timestamp NOT NULL,
 	"updated_at" timestamp NOT NULL,
-	"username" text,
+	"username" text DEFAULT split_part(gen_random_uuid()::text, '-', 5),
 	"is_anonymous" boolean,
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
@@ -86,4 +86,5 @@ ALTER TABLE "collection" ADD CONSTRAINT "collection_created_by_user_id_fk" FOREI
 ALTER TABLE "collection_closure" ADD CONSTRAINT "collection_closure_ancestor_id_collection_id_fk" FOREIGN KEY ("ancestor_id") REFERENCES "public"."collection"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "collection_closure" ADD CONSTRAINT "collection_closure_descendant_id_collection_id_fk" FOREIGN KEY ("descendant_id") REFERENCES "public"."collection"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "profile" ADD CONSTRAINT "profile_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE UNIQUE INDEX "idx_collection_slug" ON "collection" USING btree ("slug");
+CREATE UNIQUE INDEX "idx_collection_slug" ON "collection" USING btree ("slug");--> statement-breakpoint
+CREATE UNIQUE INDEX "username_idx" ON "user" USING btree ("username");

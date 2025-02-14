@@ -26,7 +26,6 @@ async function main() {
     id: userId,
     name: "Teroy",
     email: "sample@email.com",
-    username: "asterisk",
     emailVerified: true,
     createdAt: new Date(),
     updatedAt: new Date(),

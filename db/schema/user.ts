@@ -1,5 +1,6 @@
 import {
   boolean,
+  uniqueIndex,
   jsonb,
   pgTable,
   text,
@@ -7,19 +8,25 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { collection } from "./collection";
-import { relations, sql } from "drizzle-orm";
+import { relations, SQL, sql } from "drizzle-orm";
 
-export const user = pgTable("user", {
-  id: text("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").notNull(),
-  image: text("image"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
-  username: text("username"),
-  isAnonymous: boolean("is_anonymous"),
-});
+export const user = pgTable(
+  "user",
+  {
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    email: text("email").notNull().unique(),
+    emailVerified: boolean("email_verified").notNull(),
+    image: text("image"),
+    createdAt: timestamp("created_at").notNull(),
+    updatedAt: timestamp("updated_at").notNull(),
+    username: text("username")
+      .unique()
+      .default(sql`split_part(gen_random_uuid()::text, '-', 5)`),
+    isAnonymous: boolean("is_anonymous"),
+  },
+  (table) => [uniqueIndex("username_idx").on(table.username)]
+);
 
 export const profile = pgTable("profile", {
   id: uuid("id").primaryKey().defaultRandom(),

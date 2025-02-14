@@ -37,7 +37,7 @@ export function EditableLabelForm({
 
   const setEditOff = () => {
     if (disabled) return;
-    setIsEditing(true);
+    setIsEditing(false);
   };
 
   return (
