@@ -5,13 +5,16 @@ import { myCollectionsViewAtom } from "@/lib/atoms/collections";
 import { useAtomValue } from "jotai";
 import { useParams, useRouter } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { collection } from "db/schema/collection";
 import { CollectionContentTableView } from "./_components/view_table";
 import { CollectionCard } from "./_components/card_collection";
 import { SnippetCard } from "./_components/card_snippet";
+import { collection } from "db/schema/collection";
+import { user } from "db/schema/user";
 
 type Props = {
-  collections: (typeof collection.$inferSelect)[];
+  collections: (typeof collection.$inferSelect & {
+    user: typeof user.$inferSelect;
+  })[];
   items: {
     id: string;
     name: string;
@@ -49,7 +52,17 @@ export function MyCollectionsContent({ collections, items }: Props) {
               const segments = ids ? "/" + ids.join("/") : "";
               const path = `/collections${segments}/${item.id}`;
 
-              return <CollectionCard key={item.id} collection={item} />;
+              return (
+                <CollectionCard
+                  key={item.id}
+                  collection={item}
+                  onRoute={() => {
+                    router.push(
+                      `/collections/${item.user.username}/${item.slug}`
+                    );
+                  }}
+                />
+              );
             })}
           </div>
         ) : null}

@@ -30,16 +30,21 @@ import {
 import { toast } from "sonner";
 
 type Props = {
-  parent_id?: string;
+  parentId?: string;
   defaulValue?: z.infer<typeof collectionSchema>;
 };
 
-export function CollectionForm({ defaulValue }: Props) {
+export function CollectionForm({ defaulValue, parentId }: Props) {
   const router = useRouter();
   const [, setFormDirty] = useQueryState("dirty", { history: "replace" });
 
   const form = useForm<z.infer<typeof collectionSchema>>({
-    defaultValues: defaulValue ?? { name: "", color: "", visibility: "public" },
+    defaultValues: defaulValue ?? {
+      name: "",
+      parent_id: parentId,
+      color: "",
+      visibility: "public",
+    },
     resolver: zodResolver(collectionSchema),
   });
 

@@ -8,7 +8,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { collection } from "./collection";
-import { relations, SQL, sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 export const user = pgTable(
   "user",
@@ -42,11 +42,11 @@ export const profile = pgTable("profile", {
   editorTheme: text("editor_theme"),
 });
 
-export const userRelations = relations(user, ({ one, many }) => ({
-  profile: one(profile),
-  collections: many(collection, { relationName: "collections" }),
-}));
-
 export const profileRelations = relations(profile, ({ one }) => ({
   user: one(user, { fields: [profile.userId], references: [user.id] }),
+}));
+
+export const userRelations = relations(user, ({ one, many }) => ({
+  profile: one(profile),
+  collections: many(collection, { relationName: "userCollections" }),
 }));

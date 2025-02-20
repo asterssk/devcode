@@ -1,5 +1,4 @@
 import {
-  uniqueIndex,
   pgTable,
   text,
   timestamp,
@@ -7,9 +6,12 @@ import {
   smallint,
   primaryKey,
   check,
+  unique,
+  uniqueIndex,
+  AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { user } from "./user";
-import { relations, SQL, sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { visibilityEnum } from "./schema_types";
 
 export const collection = pgTable(
@@ -19,18 +21,39 @@ export const collection = pgTable(
     name: text("name").notNull(),
     color: text("color"),
     visibility: visibilityEnum().notNull().default("public"),
-    slug: text("slug").notNull().unique(),
+    slug: text("slug").notNull(),
+    parentId: uuid("parent_id").references((): AnyPgColumn => collection.id, {
+      onDelete: "cascade",
+    }),
     createdBy: text("created_by")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
+    deletedAt: timestamp("deleted_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at", {
       mode: "date",
       precision: 3,
     }).$onUpdate(() => new Date()),
   },
-  (table) => [uniqueIndex("idx_collection_slug").on(table.slug)]
+  (table) => [
+    unique().on(table.createdBy, table.parentId, table.name),
+    uniqueIndex().on(table.slug, table.createdBy),
+  ]
 );
+
+export const collectionRelations = relations(collection, ({ one, many }) => ({
+  user: one(user, {
+    relationName: "userCollections",
+    fields: [collection.createdBy],
+    references: [user.id],
+  }),
+  parent: one(collection, {
+    fields: [collection.parentId],
+    references: [collection.id],
+    relationName: "parent_child",
+  }),
+  children: many(collection, { relationName: "parent_child" }),
+}));
 
 export const collectionClosure = pgTable(
   "collection_closure",
@@ -44,14 +67,23 @@ export const collectionClosure = pgTable(
     depth: smallint().notNull(),
   },
   (table) => [
-    primaryKey({
-      name: "collection_closure_pks",
-      columns: [table.ancestorId, table.descendantId],
-    }),
+    primaryKey({ columns: [table.ancestorId, table.descendantId] }),
     check("depth_check", sql`${table.depth} >= 0`),
   ]
 );
 
-export const collectionRelations = relations(collection, ({ one }) => ({
-  user: one(user, { fields: [collection.createdBy], references: [user.id] }),
-}));
+export const collectionClosureRelations = relations(
+  collectionClosure,
+  ({ one }) => ({
+    ancestor: one(collection, {
+      fields: [collectionClosure.ancestorId],
+      references: [collection.id],
+      relationName: "closure_ancestor",
+    }),
+    descendant: one(collection, {
+      fields: [collectionClosure.descendantId],
+      references: [collection.id],
+      relationName: "closure_descendant",
+    }),
+  })
+);

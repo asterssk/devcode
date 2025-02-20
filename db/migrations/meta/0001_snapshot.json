@@ -1,6 +1,6 @@
 {
-  "id": "dc45914c-fc20-439a-9962-c64ce18b8227",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "fdc4d0ff-07a6-4bb3-a14b-c642a3b922cb",
+  "prevId": "dc45914c-fc20-439a-9962-c64ce18b8227",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -290,6 +290,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -304,8 +310,43 @@
           "notNull": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "collection_slug_created_by_index": {
+          "name": "collection_slug_created_by_index",
+          "columns": [
+            {
+              "expression": "slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_by",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
+        "collection_parent_id_collection_id_fk": {
+          "name": "collection_parent_id_collection_id_fk",
+          "tableFrom": "collection",
+          "tableTo": "collection",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "collection_created_by_user_id_fk": {
           "name": "collection_created_by_user_id_fk",
           "tableFrom": "collection",
@@ -322,11 +363,13 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "collection_slug_unique": {
-          "name": "collection_slug_unique",
+        "collection_created_by_parent_id_name_unique": {
+          "name": "collection_created_by_parent_id_name_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "slug"
+            "created_by",
+            "parent_id",
+            "name"
           ]
         }
       },
@@ -387,8 +430,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "collection_closure_pks": {
-          "name": "collection_closure_pks",
+        "collection_closure_ancestor_id_descendant_id_pk": {
+          "name": "collection_closure_ancestor_id_descendant_id_pk",
           "columns": [
             "ancestor_id",
             "descendant_id"

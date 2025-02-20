@@ -23,7 +23,7 @@ export function Empty({ label, className, children }: Props) {
       )}
 
       {label ? (
-        <p className="text-muted-foreground text-center">
+        <p className="text-muted-foreground text-center text-sm">
           {label ?? "No record found."}
         </p>
       ) : null}

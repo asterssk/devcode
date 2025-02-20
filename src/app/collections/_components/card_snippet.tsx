@@ -3,15 +3,13 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CSS } from "@dnd-kit/utilities";
-import { useDndContext, useDraggable } from "@dnd-kit/core";
+import { useDraggable } from "@dnd-kit/core";
 import { InferSelectModel } from "drizzle-orm";
 import { collection } from "db/schema/collection";
 
 type Props = { snippet: InferSelectModel<typeof collection> };
 
 export function SnippetCard({ snippet }: Props) {
-  const { active } = useDndContext();
-
   const {
     isDragging,
     attributes,
@@ -19,19 +17,6 @@ export function SnippetCard({ snippet }: Props) {
     transform,
     setNodeRef: setDragRef,
   } = useDraggable({ id: snippet.id });
-
-  //   if (isDragging) {
-  //     return (
-  //       <div
-  //         key={snippet.id}
-  //         ref={setDragRef}
-  //         {...attributes}
-  //         style={{ transform: CSS.Transform.toString(transform) }}
-  //       >
-  //         {snippet.name}
-  //       </div>
-  //     );
-  //   }
 
   return (
     <Card
@@ -41,12 +26,16 @@ export function SnippetCard({ snippet }: Props) {
       {...listeners}
       style={{ transform: CSS.Translate.toString(transform) }}
       onDoubleClick={() => alert(snippet.id)}
-      className={cn("flex flex-col", "hover:bg-secondary transition-color")}
+      className={cn(
+        "flex flex-col",
+        "hover:bg-secondary transition-colors",
+        isDragging ? "shadow-lg" : ""
+      )}
     >
       <CardHeader className="py-3 pl-4">
         <div className="flex items-start justify-between">
           <span className="line-clamp-1 text-[0.85rem] text-nowrap cursor-default">
-            {snippet.name}
+            {snippet.name} {snippet.id}
           </span>
 
           {/* <CollectionMenuButton id={snippet.id} /> */}

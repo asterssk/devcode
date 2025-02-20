@@ -6,10 +6,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { CollectionForm } from "./_form";
-import { collection } from "db/schema/collection";
 import { eq } from "drizzle-orm";
+import { collection } from "db/schema/collection";
 
-type Props = { searchParams: Promise<{ id?: string }> };
+type Props = { searchParams: Promise<{ id?: string; parent?: string }> };
+
+async function getParentId(parent?: string) {
+  if (!parent) return;
+  const [username, slug] = parent.split(";");
+  if (!username || !slug) return;
+
+  const result = await db.query.collection.findFirst({
+    columns: { id: true },
+    where: eq(collection.slug, slug),
+  });
+  return result?.id;
+}
 
 async function getDefaultCollection(id?: string | null) {
   if (!id) return;
@@ -17,8 +29,10 @@ async function getDefaultCollection(id?: string | null) {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { id } = await searchParams;
+  const { id, parent } = await searchParams;
   const isNew = !id;
+
+  const parentId = await getParentId(parent);
   const toEdit = await getDefaultCollection(id);
 
   return (
@@ -33,7 +47,7 @@ export default async function Page({ searchParams }: Props) {
         <DialogDescription className="sr-only" />
 
         <div className="overflow-y-auto flex-1 bg-background flex flex-col">
-          <CollectionForm defaulValue={toEdit} />
+          <CollectionForm parentId={parentId} defaulValue={toEdit} />
         </div>
       </DialogContent>
     </Dialog>

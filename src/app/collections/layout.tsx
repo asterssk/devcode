@@ -13,6 +13,7 @@ export default async function Layout({ children }: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
 
   return (
+    // <CollectionContentWrapper>
     <div className="flex flex-col flex-1">
       {session ? null : (
         <Alert variant="warn">
@@ -31,10 +32,11 @@ export default async function Layout({ children }: Props) {
       </AppHeader>
 
       <CollectionContentWrapper>
-        <div className="flex-1 relative">
-          <div className="absolute inset-0 overflow-hidden">{children}</div>
+        <div className="flex-1 w-full relative">
+          <div className="absolute inset-0">{children}</div>
         </div>
       </CollectionContentWrapper>
     </div>
+    // {/* </CollectionContentWrapper> */}
   );
 }
